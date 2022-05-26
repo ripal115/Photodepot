@@ -1,0 +1,14 @@
+.photoeditor-signup {
+    height: 100%;
+    width: 540px;
+    max-width: 767px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding-top: 60px;
+    .form-group {
+        width: 100%;
+    }
+}

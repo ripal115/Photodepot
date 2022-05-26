@@ -1,0 +1,177 @@
+//
+// Main Styles
+//
+
+////////////////////////////////////////////////////////////////
+///////////// DO NOT MODIFY BELOW INCLUDE ORDER ////////////////
+////////////////////////////////////////////////////////////////
+
+// 1: Initialize
+@import "init";
+
+// 2: Bootstrap/Material framework includes
+@import "~bootstrap/scss/bootstrap";
+@import "vendors/react/material-ui/general";
+
+//
+// Main Style
+//
+.df{
+    display: flex !important;
+}
+.jc-sb{
+    justify-content: space-between;
+}
+.w-100{
+    width:100% !important;
+}
+
+.MuiTableCell-alignRight{
+
+    text-align: left !important;
+}
+
+////////////////////////////////////////////////////////////////
+///////////// DO NOT MODIFY BELOW INCLUDE ORDER ////////////////
+////////////////////////////////////////////////////////////////
+
+// 1: Initialize
+@import "init";
+
+// 2: Bootstrap framework includes
+@import "~bootstrap/scss/bootstrap";
+
+
+// 3: Components
+@import
+    "components/utilities",
+    "components/burger-icon",
+    "components/card",
+    "components/wizard",
+    "components/type",
+    "components/breadcrumb",
+    "components/nav",
+    "components/alert",
+    "components/buttons",
+    "components/code",
+    "components/dropdown",
+    "components/forms",
+    "components/grid",
+    "components/modal",
+    "components/progress",
+    "components/table",
+    "components/popover",
+    "components/tooltip",
+    "components/accordion",
+    "components/datatable",
+    "components/checkbox",
+    "components/radio",
+    "components/switch",
+    "components/option",
+    "components/dialog",
+    "components/strikethrough",
+    "components/separator",
+    "components/image-input",
+    "components/label",
+    "components/loader",
+    "components/symbol",
+    "components/pulse",
+    "components/page-loader",
+    "components/quick-search",
+    "components/scrolltop",
+    "components/spinner",
+    "components/sticky-toolbar",
+    "components/svg-icon",
+    "components/svg",
+    "components/timeline",
+    "components/timeline-2",
+    "components/timeline-3",
+    "components/timeline-4",
+    "components/timeline-5",
+    "components/timeline-6",
+    "components/overlay",
+    "components/wave",
+    "components/list",
+    "components/bullet",
+    "components/navi",
+    "components/ribbon",
+    "components/offcanvas",
+    "components/toggle";
+
+// 4: Plugins
+@import
+    "vendors/plugins/formvalidation",
+    "vendors/plugins/dropzone",
+    "vendors/plugins/perfect-scrollbar",
+    "vendors/plugins/prismjs",
+    "vendors/plugins/apexcharts";
+
+// 5: Layout
+@import "layout/init";
+
+////////////////////////////////////////////////////////////////
+///////////// DO NOT MODIFY ABOVE INCLUDE ORDER ////////////////
+////////////////////////////////////////////////////////////////
+.honda-container span{
+    font-size: 16px;
+    color: #757575;
+    display: block;
+    padding-bottom: 2px;
+}
+
+.honda-container p {
+    font-size: 14px;
+    color: #323232;
+    font-weight: 600;
+    margin: 0;
+}
+.honda-text-grid12 img, .honda-text-grid12 img.images, .honda-text-grid12 video {
+    height: 200px!important;
+    width: 200px!important;
+}
+
+.other-information-child-text-style1 {
+    padding: 15px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    margin: 20px 0 40px;
+}
+
+.honda-text-grid-border {
+    border: 1px solid #d0d0d0;
+    padding: 15px;
+    border-radius: 4px;
+}
+.honda-container {
+    // max-width: 1280px;
+    padding: 0 20px;
+    // margin: 0 auto;
+}
+.honda-text-grid12 {
+    display: grid;
+    grid-template-columns: repeat(1,1fr);
+    grid-gap: 20px 30px;
+    gap: 20px 30px;
+}
+.column {
+    float: left;
+    width: 33.33%;
+    padding: 5px;
+  }
+  
+  /* Clear floats after image containers */
+  .row::after {
+    content: "";
+    clear: both;
+    display: table;
+  }
+
+  .customRow {
+    display: flex;
+    column-gap: 20px;
+  }
+  
+//   .column {
+//     flex: 10%;
+//     padding: 5px;
+//   }
