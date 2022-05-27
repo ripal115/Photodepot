@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
-import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
-import { ToastContainer, toast } from "react-toastify";
+import { ApiGet } from "../../../helpers/API/ApiData";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 import Dialog from "@material-ui/core/Dialog";
@@ -10,7 +10,6 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { Tooltip } from "@material-ui/core";
-import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 import ViewHiredPhotoEditor from "../HiredPhotoEditor/ViewHiredPhotoEditor";
 
 const HiredPhotoGrapher = () => {
@@ -23,16 +22,14 @@ const HiredPhotoGrapher = () => {
 
   const getHirePhotoEditorData = async () => {
     setIsLoaderVisible(true);
-    ApiGet(`hire/getAllHire`)
+    await ApiGet(`hire/getAllHire`)
       .then((res) => {
         console.log("get All Hire", res?.data?.payload.hire);
         setHireAllData(res?.data?.payload?.hire);
-        // toast.success(res?.data?.message);
       })
       .catch((err) => {
         console.log("err", err);
       });
-
     setIsLoaderVisible(false);
   };
 

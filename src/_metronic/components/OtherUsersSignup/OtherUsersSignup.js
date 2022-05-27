@@ -1,8 +1,6 @@
 import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
 import { ApiPost } from "../../../helpers/API/ApiData";
 import { ToastContainer, toast } from "react-toastify";
-import { Link } from 'react-router-dom'
 import "react-toastify/dist/ReactToastify.css";
 import "./otherUsersSignup.scss";
 import "../../../_metronic/_assets/sass/layout/_basic.scss";
@@ -70,17 +68,25 @@ export default function OtherUsersSignup() {
     setLoader(true);
     e.preventDefault();
 
-    let formData = new FormData();
-      formData.append("email", loginData.email);
-      formData.append("password", loginData.password);
-      formData.append("contact", loginData.phone);
-      formData.append("firstName", loginData.firstname);
-      formData.append("lastName", loginData.lastname);
-      formData.append("role", "6283240ebb6a3e0cac847a13");
+    // let formData = new FormData();
+    //   formData.append("email", loginData.email);
+    //   formData.append("password", loginData.password);
+    //   formData.append("contact", loginData.phone);
+    //   formData.append("firstName", loginData.firstname);
+    //   formData.append("lastName", loginData.lastname);
+    //   formData.append("role", "6283240ebb6a3e0cac847a13");
+    let data = {
+      email: loginData.email,
+      password: loginData.password,
+      contact: loginData.phone,
+      firstName: loginData.firstname,
+      lastName: loginData.lastname,
+      role: "6283240ebb6a3e0cac847a13",
+    };
 
-    console.log("signup data",formData);
+    console.log("signup data",data);
     if (validation()) {
-      await ApiPost("admin/signup", formData)
+      await ApiPost("admin/signup", data)
         .then((res) => {
             console.log("signup",res);
             if (res?.status === 200) {

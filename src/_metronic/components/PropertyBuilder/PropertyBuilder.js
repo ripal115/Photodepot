@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
-import { ApiGet, ApiDelete } from "../../../helpers/API/ApiData";
+import { ApiGet } from "../../../helpers/API/ApiData";
 import { Modal } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 
@@ -11,7 +11,7 @@ const PropertyBuilder = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
-  const [eId, setEmailId] = useState();
+  // const [eId, setEmailId] = useState();  
   const [photoEditor, setPhotoEditor] = useState()
   const [countPerPage, setCountPerPage] = useState(10);
 
@@ -32,25 +32,21 @@ const PropertyBuilder = () => {
     setIsLoaderVisible(false);
   };
 
-  const handleMenu = () => {
-    setShow(true);
-  };
-
   const handleClose = () => {
     setShow(false);
   };
 
-  const removeEmail = async () => {
-    await ApiDelete(`newsletter/remove/${eId}`)
-      .then((res) => {
-        setShow(false);
-        getNewsData();
-        toast.success("Email Removed");
-      })
-      .catch((err) => {
-        console.log("err");
-      });
-  };
+  // const removeEmail = async () => {
+  //   await ApiDelete(`newsletter/remove/${eId}`)
+  //     .then((res) => {
+  //       setShow(false);
+  //       getNewsData();
+  //       toast.success("Email Removed");
+  //     })
+  //     .catch((err) => {
+  //       console.log("err");
+  //     });
+  // };
 
   const columns = [
     {
@@ -149,9 +145,9 @@ const PropertyBuilder = () => {
               <Button variant="secondary" onClick={handleClose}>
                 cancel
               </Button>
-              <Button variant="danger" onClick={() => removeEmail()}>
+              {/* <Button variant="danger" onClick={() => removeEmail()}>
                 Delete
-              </Button>
+              </Button> */}
             </Modal.Footer>
           </Modal>
         </div>

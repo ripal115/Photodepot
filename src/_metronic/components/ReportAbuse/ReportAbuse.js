@@ -5,13 +5,13 @@ import { ApiGet } from "../../../helpers/API/ApiData";
 
 const ReportAbuse = () => {
   const [reportAbuse, setReportAbuse] = useState();
-  const [countPerPage, setCountPerPage] = useState(10);
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
-  const [show, setShow] = useState(false);
+  const [countPerPage, setCountPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
-  const getAllReportAbuse = () => {
-    ApiGet(`reportAbuse/getReportAbuse`)
+  const getAllReportAbuse = async () => {
+    setIsLoaderVisible(true)
+    await ApiGet(`reportAbuse/getReportAbuse`)
       .then((res) => {
         console.log("getabusers", res);
         setReportAbuse(res?.data?.payload?.reportAbuse);
@@ -19,6 +19,7 @@ const ReportAbuse = () => {
       .catch((err) => {
         console.log("err", err);
       });
+      setIsLoaderVisible(false)
   };
 
   useEffect(() => {

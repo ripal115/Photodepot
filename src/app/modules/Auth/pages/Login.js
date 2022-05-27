@@ -1,5 +1,4 @@
-import React, { useState } from "react"; //
-import { useHistory } from "react-router-dom";
+import React, { useState } from "react"; 
 import { ApiPost } from "../../../../helpers/API/ApiData";
 import * as authUtil from "../../../../utils/auth.util";
 import * as userUtil from "../../../../utils/user.util";
@@ -9,7 +8,6 @@ import "react-toastify/dist/ReactToastify.css";
 import "../../../../_metronic/_assets/sass/layout/_basic.scss";
 
 export default function Login() {
-  const history = useHistory();
   const [loginData, setLoginData] = useState({});
   const [errors, setErrors] = useState({});
   const [loader, setLoader] = useState(false);

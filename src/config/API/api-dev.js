@@ -1,6 +1,5 @@
 const protocol = "https";
 const host = "api.photodepot.rejoicehub.com/api/v1";
-// const host = "api.blockcreator.rejoicehub.com/api/v1";
 
 // const protocol = "http";
 // const host = "192.168.29.165:3003/api/v1";

@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { ApiGet } from "../../../helpers/API/ApiData";
-import { getUserInfo } from "../../../utils/user.util";
-import {BarChart , CartesianGrid ,XAxis ,YAxis,Tooltip,Legend, Bar} from 'recharts';
+import { CartesianGrid ,XAxis ,YAxis} from 'recharts';
 import OtherUsers from "../../components/OtherUsers/OtherUsers";
 import PhotoEditor from "../../components/PhotoEditer/PhotoEditer";
 import Photographer from "../../components/Photographer/Photographer";
 import PropertyBuilder from "../../components/PropertyBuilder/PropertyBuilder";
 import { LineChart, Line} from 'recharts';
 export function Demo1Dashboard() {
-    let userInfo =getUserInfo()
+    // let userInfo =getUserInfo()
     const [selectedTable, setSelectedTable] = useState("Photographer")
     const [userCountsData, setUserCountsData] = useState()
 
@@ -27,8 +26,8 @@ export function Demo1Dashboard() {
       userCounts()
     }, [])
 
-    const countsData = ["Miscellaneous Affiliates","photoEditordata","photographerAata","propertyBuilder"]
-    const countValue = [userCountsData?.anonymous,userCountsData?.photoEditordata,userCountsData?.photographerAata,userCountsData?.propertyBuilder,userCountsData?.photographerAata]
+    // const countsData = ["Miscellaneous Affiliates","photoEditordata","photographerAata","propertyBuilder"]
+    // const countValue = [userCountsData?.anonymous,userCountsData?.photoEditordata,userCountsData?.photographerAata,userCountsData?.propertyBuilder,userCountsData?.photographerAata]
     
     const data = [
       {
@@ -82,43 +81,39 @@ export function Demo1Dashboard() {
               >
                 <div className="bg-light-warning px-6 py-8 rounded-xl">
                   <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Photographer _{userCountsData?.photographerAata}</span>
-                  <a
-                    // href="/photographer"
+                  <p
                     className="text-warning font-weight-bold font-size-h6"
                     onClick={() => setSelectedTable("Photographer")}
                   >
                     Photographer
-                  </a>
+                  </p>
                 </div>
                 <div className="bg-light-danger px-6 py-8 rounded-xl">
                   <span className="text-warning font-weight-bold font-size-h3 d-block my-2">PhotoEditor _{userCountsData?.photoEditordata}</span>
-                  <a
-                    // href="/photoediter"
+                  <p
                     className="text-warning font-weight-bold font-size-h6 mt-2"
                     onClick={() => setSelectedTable("PhotoEditor")}
                   >
                     PhotoEditor
-                  </a>
+                  </p>
                 </div>
                 <div className="bg-light-secondary px-6 py-8 rounded-xl">
                   <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Property Builder _{userCountsData?.propertyBuilder}</span>
-                  <a
-                    // href="#"
+                  <p
                     className="text-warning font-weight-bold font-size-h6"
                     onClick={() =>setSelectedTable("PropertyBuilder") }
                   >
                    Property Builder
-                  </a>
+                  </p>
                 </div>
                 <div className="bg-light-success px-6 py-8 rounded-xl">
                   <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Miscellaneous Affiliates _{userCountsData?.anonymous}</span>
-                  <a
-                    // href="#"
+                  <p
                     className="text-warning font-weight-bold font-size-h6"
                     onClick={() => setSelectedTable("OtherUsers")}
                   >
                     Miscellaneous Affiliates
-                  </a>
+                  </p>
                 </div>
                 {/* <div className="bg-light-success px-6 py-8 rounded-xl">
                   <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Hired Photographer _{userCountsData?.anonymous}</span>

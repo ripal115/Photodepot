@@ -1,32 +1,30 @@
 import React, { useEffect, useState } from "react";
-import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
+import { ApiGet } from "../../../helpers/API/ApiData";
 import moment from "moment";
 
 const HiredViewMore = (props) => {
   const { photoEditorID } = props;
   const [getAdminData, setGetAdminData] = useState();
-  const [inputValue, setInputValue] = useState();
-  const [errors, setErrors] = useState();
 
-  const handleOnChange = (e) => {
-    const { name, value } = e.target;
-    console.log("2222222", e.target.value);
-    setGetAdminData({ ...getAdminData, [name]: value });
-    setErrors({ ...errors, [name]: "" });
-  };
-  const handleOnDateChnage = (e) => {
-    const { name, value } = e.target;
-    console.log("e.atrget", value);
-    setGetAdminData(value);
-    // setInputValueDate({ ...inputValueDate, [name]: moment(value, "YYYY-MM-DD").format("DD-MM-YYYY") });
-    setErrors({ ...errors, [name]: "" });
-  };
+  // const handleOnChange = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log("2222222", e.target.value);
+  //   setGetAdminData({ ...getAdminData, [name]: value });
+  //   setErrors({ ...errors, [name]: "" });
+  // };
+  // const handleOnDateChnage = (e) => {
+  //   const { name, value } = e.target;
+  //   console.log("e.atrget", value);
+  //   setGetAdminData(value);
+  //   // setInputValueDate({ ...inputValueDate, [name]: moment(value, "YYYY-MM-DD").format("DD-MM-YYYY") });
+  //   setErrors({ ...errors, [name]: "" });
+  // };
 
-  const handleOnChnageAddImg = (e) => {
-    const { name } = e.target;
-    setGetAdminData({ ...getAdminData, [name]: e.target.files[0] });
-    setErrors({ ...errors, [name]: "" });
-  };
+  // const handleOnChnageAddImg = (e) => {
+  //   const { name } = e.target;
+  //   setGetAdminData({ ...getAdminData, [name]: e.target.files[0] });
+  //   setErrors({ ...errors, [name]: "" });
+  // };
 
   const getAllAdmin = () => {
     // let formData = new FormData();

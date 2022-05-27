@@ -9,7 +9,6 @@ import OtherUsers from "../_metronic/components/OtherUsers/OtherUsers";
 import AdminData from "../_metronic/components/AdminData/AdminData";
 import HiredPhotoGrapher from "../_metronic/components/HiredPhotoGrapher/HiredPhotoGrapher";
 import HiredPhotoEditor from "../_metronic/components/HiredPhotoEditor/HiredPhotoEditor";
-import HiredViewMore from "../_metronic/components/HiredViewMore/HiredViewMore";
 import Hire from "../_metronic/components/Hire/Hire";
 import ReportAbuse from "../_metronic/components/ReportAbuse/ReportAbuse";
 import AdminReview from "../_metronic/components/AdminReview/AdminReview";

@@ -31,6 +31,9 @@ const PhotoEditor = () => {
   const [dataViewMore, setDataViewMore] = useState(false);
   const [statusName, setStatusName] = useState();
   const [photoEditorID, setPhotoEditorID] = useState();
+  const [loading, setLoading] = useState(false)
+
+  console.log("inputValue",inputValue);
 
   console.log("photoEditorID", photoEditorID);
 
@@ -78,17 +81,38 @@ const PhotoEditor = () => {
     setShow(false);
   };
 
+  const validation = () => {
+    let isFormValid = true;
+    let errors = {};
+    if (!inputValue.email || inputValue.email === "") {
+      isFormValid = false;
+      errors["email"] = "Please Enter email!";
+    }
+    setErrors(errors);
+    return isFormValid;
+  };
+
   const handleOnAdd = async () => {
-    await ApiPut("admin/invite", inputValue)
-      .then((res) => {
-        console.log("res admin/invite", res);
-        toast.success(res?.data?.message);
-        setAddPhotoEditor(false);
-      })
-      .catch((err) => {
-        console.log("err");
-        toast.error(err?.response?.data?.message);
-      });
+    // setLoading(true)
+    // let data = {
+    //   email:inputValue?.email,
+    //   type:"photoeditor"
+    // }
+    if (validation()) {
+      setLoading(true)
+      await ApiPut("admin/invite", inputValue)
+        .then((res) => {
+          setLoading(false)
+          console.log("res admin/invite", res);
+          toast.success(res?.data?.message);
+          setAddPhotoEditor(false);
+        })
+        .catch((err) => {
+          setLoading(false)
+          console.log("err");
+          toast.error(err?.response?.data?.message);
+        });
+    }
   };
 
   const HandleonActive = async (e, id, name) => {
@@ -426,9 +450,9 @@ const PhotoEditor = () => {
                 onClick={(e) => handleOnAdd(e)}
               >
                 Add
-                {/* {loading && (
+                {loading && (
                         <span className="mx-3 spinner spinner-white"></span>
-                      )} */}
+                      )}
               </button>
             </div>
           </>

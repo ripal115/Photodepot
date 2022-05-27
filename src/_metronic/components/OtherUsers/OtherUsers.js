@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
-import { ApiGet, ApiDelete, ApiPut } from "../../../helpers/API/ApiData";
+import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
 // import Slide from "@material-ui/core/Slide";
 // import DeleteIcon from "@material-ui/icons/Delete";
 import { Modal } from "react-bootstrap";
@@ -15,6 +15,7 @@ import moment from "moment";
 
 const OtherUsers = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
+  const [loading, setLoading] = useState(false)
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
   const [eId, setEmailId] = useState();
@@ -52,17 +53,33 @@ const OtherUsers = () => {
       });
   };
 
+  const validation = () => {
+    let isFormValid = true;
+    let errors = {};
+    if (!inputValue.email || inputValue.email === "") {
+      isFormValid = false;
+      errors["email"] = "Please Enter email!";
+    }
+    setErrors(errors);
+    return isFormValid;
+  };
+
   const handleOnAdd = async () => {
+    setLoading(true)
+    if (validation()) {
     await ApiPut("admin/invite", inputValue)
       .then((res) => {
         console.log("res admin/invite", res);
         toast.success(res?.data?.message);
         setAddOtherUsers(false);
+        setLoading(false)
       })
       .catch((err) => {
         console.log("err");
         toast.error(err?.response?.data?.message);
+        setLoading(false)
       });
+    }
   };
 
   const statusBlock = async () => {
@@ -107,18 +124,6 @@ const OtherUsers = () => {
 
   const handleOnClose = (e) => {
     setAddOtherUsers(false);
-  };
-
-  const removeEmail = async () => {
-    await ApiDelete(`newsletter/remove/${eId}`)
-      .then((res) => {
-        setShow(false);
-        getNewsData();
-        toast.success("Email Removed");
-      })
-      .catch((err) => {
-        console.log("err");
-      });
   };
 
   const columns = [
@@ -381,9 +386,9 @@ const OtherUsers = () => {
                 onClick={(e) => handleOnAdd(e)}
               >
                 Add
-                {/* {loading && (
+                {loading && (
                         <span className="mx-3 spinner spinner-white"></span>
-                      )} */}
+                      )}
               </button>
             </div>
           </>

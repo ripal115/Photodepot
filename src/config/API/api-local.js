@@ -1,5 +1,3 @@
-// const protocol = "https";
-// const host = "api.blockcreator.rejoicehub.com/api/v1";
 
 const protocol = "https";
 const host = "api.photodepot.rejoicehub.com/api/v1";

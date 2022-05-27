@@ -1,9 +1,7 @@
 import React, { useState } from "react"; //
 import { useHistory } from "react-router-dom";
 import { ApiPost } from "../../../../helpers/API/ApiData";
-import * as authUtil from "../../../../utils/auth.util";
-import * as userUtil from "../../../../utils/user.util";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import { Link } from 'react-router-dom'
 import "react-toastify/dist/ReactToastify.css";
 import "../../../../_metronic/_assets/sass/layout/_basic.scss";
@@ -14,8 +12,8 @@ export default function Signup() {
   const [loginData, setLoginData] = useState({});
   const [errors, setErrors] = useState({});
   const [loader, setLoader] = useState(false);
-  const regexEmail =
-    /^(([^<>()[\],;:\s@]+([^<>()[\],;:\s@]+)*)|(.+))@(([^<>()[\],;:\s@]+)+[^<>()[\],;:\s@]{2,})$/i;
+  // const regexEmail =
+  //   /^(([^<>()[\],;:\s@]+([^<>()[\],;:\s@]+)*)|(.+))@(([^<>()[\],;:\s@]+)+[^<>()[\],;:\s@]{2,})$/i;
 
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
@@ -32,26 +30,55 @@ export default function Signup() {
     }
   };
 
-  const validation = (e) => {
-    if (!loginData.email && !loginData.password) {
-      setErrors({
-        email: "*Email is required*",
-        password: "*Password is required*",
-        firstname: "*F  irstname is required*",
-        lastname: "*Lastname is required*",
-        phone: "*Phone number is required*",
-      });
-    } else if (loginData.email === "" && loginData.password === "") {
-      setErrors({ ...errors, email: "Email is required*" });
-    } else if (!loginData.email || loginData.email === "") {
-      setErrors({ ...errors, email: "Email is required*" });
-    } else if (!loginData.email || regexEmail.test(loginData.email) === false) {
-      setErrors({ ...errors, email: "Email is not valid*" });
-    } else if (!loginData.password || loginData.password === "") {
-      setErrors({ ...errors, password: "Password is required*" });
-    } else {
-      loginData.email = loginData.email.toLowerCase();
+  // const validation = (e) => {
+  //   if (!loginData.email && !loginData.password) {
+  //     setErrors({
+  //       email: "*Email is required*",
+  //       password: "*Password is required*",
+  //       firstname: "*Firstname is required*",
+  //       lastname: "*Lastname is required*",
+  //       phone: "*Phone number is required*",
+  //     });
+  //   } else if (loginData.email === "" && loginData.password === "") {
+  //     setErrors({ ...errors, email: "Email is required*" });
+  //   } else if (!loginData.email || loginData.email === "") {
+  //     setErrors({ ...errors, email: "Email is required*" });
+  //   } else if (!loginData.email || regexEmail.test(loginData.email) === false) {
+  //     setErrors({ ...errors, email: "Email is not valid*" });
+  //   } else if (!loginData.password || loginData.password === "") {
+  //     setErrors({ ...errors, password: "Password is required*" });
+  //   } else {
+  //     loginData.email = loginData.email.toLowerCase();
+  //   }
+  // };
+
+  const validateforSignupData = () => {
+    let isFormValid = true;
+    let errors = {};
+
+    if (loginData && !loginData?.firstname) {
+      isFormValid = false;
+      errors["firstname"] = "Please enter your name!";
     }
+    if (loginData && !loginData?.lastname) {
+      isFormValid = false;
+      errors["lastname"] = "Please enter your lastname!";
+    }
+    if (loginData && !loginData?.email) {
+      isFormValid = false;
+      errors["email"] = "Please enter your email!";
+    }
+    if (loginData && !loginData?.password) {
+      isFormValid = false;
+      errors["password"] = "Please enter your password!";
+    }
+    if (loginData && !loginData?.phone) {
+      isFormValid = false;
+      errors["phone"] = "Please enter your phone!";
+    }
+    
+    setErrors(errors);
+    return isFormValid;
   };
 
   const handleSubmit = async (e) => {
@@ -66,7 +93,7 @@ export default function Signup() {
       role: "6283240ebb6a3e0cac847a13",
     };
     console.log("signup data",data);
-    // if (validation()) {
+    if (validateforSignupData()) {
       await ApiPost("admin/signup", data)
         .then((res) => {
             console.log("signup",res);
@@ -78,7 +105,7 @@ export default function Signup() {
         .catch((err) => {
           console.log("err--------->", err);
         });
-    // }
+    }
     setLoader(false);
   };
 

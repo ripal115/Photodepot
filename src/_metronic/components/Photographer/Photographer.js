@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
-import { ApiGet, ApiDelete } from "../../../helpers/API/ApiData";
+import { ApiGet } from "../../../helpers/API/ApiData";
 // import Slide from "@material-ui/core/Slide";
 // import DeleteIcon from "@material-ui/icons/Delete";
 // import { Modal } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 // const Transition = React.forwardRef(function Transition(props, ref) {

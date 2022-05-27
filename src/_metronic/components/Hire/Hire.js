@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Card } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
+import { ApiGet } from "../../../helpers/API/ApiData";
 
 const Hire = (props) => {
   const { photoEditorID } = props;

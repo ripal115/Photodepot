@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import { useFormik } from "formik";
 import {
   ApiPost,
-  ApiPostNoAuth,
   ApiPut,
 } from "../../../../helpers/API/ApiData";
-import { Link, Redirect, useHistory } from "react-router-dom";
-import * as authUtil from "../../../../utils/auth.util";
-import * as userUtil from "../../../../utils/user.util";
-import * as Yup from "yup";
+import { Link, useHistory } from "react-router-dom";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -199,7 +194,7 @@ function ForgotPassword() {
       />
       {/*----- Send mail -----*/}
       <>
-        {sendMail == true && (
+        {sendMail === true && (
           <div className="login-form login-forgot" style={{ display: "block" }}>
             <div className="text-center pb-8">
               <h3 className="font-size-h1">Forgotten Password ?</h3>

@@ -3,14 +3,14 @@ import { ApiGet } from "../../../helpers/API/ApiData";
 import DataTable, { defaultThemes } from "react-data-table-component";
 
 const AdminReview = () => {
+  const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [adminReview, setAdminReview] = useState();
   const [countPerPage, setCountPerPage] = useState(10);
-  const [isLoaderVisible, setIsLoaderVisible] = useState(false);
-  const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
 
-  const getAllAdminReview = () => {
-    ApiGet(`review`)
+  const getAllAdminReview = async () => {
+    setIsLoaderVisible(true)
+    await ApiGet(`review`)
       .then((res) => {
         console.log("getadminreview", res);
         setAdminReview(res?.data?.payload?.review)
@@ -18,6 +18,7 @@ const AdminReview = () => {
       .catch((err) => {
         console.log("err", err);
       });
+      setIsLoaderVisible(false)
   };
 
   useEffect(() => {

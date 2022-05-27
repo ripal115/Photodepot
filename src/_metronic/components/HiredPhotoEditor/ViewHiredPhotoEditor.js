@@ -1,26 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
+import React, { useEffect } from "react";
 import "react-toastify/dist/ReactToastify.css";
-import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
 import moment from "moment";
 
 const ViewHiredPhotoEditor = (props) => {
   const { photoEditorID } = props;
-  const [photoEditorData, setPhotoEditorData] = useState();
   console.log("photoEditorID", photoEditorID);
-  const getViewPhotoEditordetails = () => {
-    ApiGet(
-      `hire/getAllHire?photoeditor_id=${photoEditorID?.photoeditor_id?.role}`
-    )
-      .then((res) => {
-        console.log("getAllHire", res?.data?.payload?.hire?.[0]);
-        setPhotoEditorData(res?.data?.payload?.hire?.[0]);
-        toast.success(res?.data?.message);
-      })
-      .catch((err) => {
-        console.log("err", err);
-      });
-  };
+  // const getViewPhotoEditordetails = () => {
+  //   ApiGet(
+  //     `hire/getAllHire?photoeditor_id=${photoEditorID?.photoeditor_id?.role}`
+  //   )
+  //     .then((res) => {
+  //       console.log("getAllHire", res?.data?.payload?.hire?.[0]);
+  //       setPhotoEditorData(res?.data?.payload?.hire?.[0]);
+  //       toast.success(res?.data?.message);
+  //     })
+  //     .catch((err) => {
+  //       console.log("err", err);
+  //     });
+  // };
 
   console.log("photoEditorID?.image", photoEditorID?.image);
 
@@ -42,15 +39,13 @@ const ViewHiredPhotoEditor = (props) => {
             return (
               <>
                 <div class="text-center text-lg-start">
-                  <div class="">
-                    <a href="#" class="d-block mb-4 h-100">
+                  <div class="d-block mb-4 h-100">
                       <img
                         src={res?.media}
                         alt=""
                         height="90px"
                         width="170px"
                       />
-                    </a>
                   </div>
                 </div>
               </>
