@@ -13,6 +13,7 @@ const PropertyBuilder = () => {
   const [page, setPage] = useState(1);
   // const [eId, setEmailId] = useState();  
   const [photoEditor, setPhotoEditor] = useState()
+  const [filterPhotoEditor, setFilterPhotoEditor] = useState()
   const [countPerPage, setCountPerPage] = useState(10);
 
   useEffect(() => {
@@ -25,6 +26,7 @@ const PropertyBuilder = () => {
       .then((res) => {
         console.log("get photoeditor",res);
         setPhotoEditor(res?.data?.payload?.admin);
+        setFilterPhotoEditor(res?.data?.payload?.admin);
       })
       .catch((err) => {
         console.log("err", err);
@@ -106,6 +108,17 @@ const PropertyBuilder = () => {
     },
   };
 
+  const handleSearchData = (e) => {
+    console.log("first", e.target.value);
+    var value = e.target.value.toLowerCase();
+    setPhotoEditor(() => 
+    filterPhotoEditor.filter((item) => 
+    // console.log("filterPhotographerr",item)
+          item?.email?.toLowerCase().includes(value)
+
+    ))
+  }
+
   return (
     <>
       <div className="card p-1">
@@ -113,7 +126,18 @@ const PropertyBuilder = () => {
         <div className="p-2 mb-2">
           <div className="row mb-4 pr-3">
             <div className="col d-flex justify-content-between">
-              <h2 className="pl-3 pt-2">Property Builder</h2>
+              <h2 className="pl-3 pt-2">Realestate Agent</h2>
+            </div>
+            <div className="col">
+              <div>
+                <input
+                   type="text"
+                className={`form-control form-control-lg form-control-solid `}
+                name="title"
+                placeholder="Search Photo Builder"
+                onChange={(e) => handleSearchData(e)}
+              />
+              </div>
             </div>
           </div>
 

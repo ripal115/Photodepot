@@ -1,57 +1,60 @@
 import React, { useEffect, useState } from "react";
 import { ApiGet } from "../../../helpers/API/ApiData";
-import { CartesianGrid ,XAxis ,YAxis} from 'recharts';
+import { CartesianGrid, XAxis, YAxis } from "recharts";
 import OtherUsers from "../../components/OtherUsers/OtherUsers";
 import PhotoEditor from "../../components/PhotoEditer/PhotoEditer";
 import Photographer from "../../components/Photographer/Photographer";
 import PropertyBuilder from "../../components/PropertyBuilder/PropertyBuilder";
-import { LineChart, Line} from 'recharts';
+import { LineChart, Line } from "recharts";
 export function Demo1Dashboard() {
-    // let userInfo =getUserInfo()
-    const [selectedTable, setSelectedTable] = useState("Photographer")
-    const [userCountsData, setUserCountsData] = useState()
+  // let userInfo =getUserInfo()
+  const [selectedTable, setSelectedTable] = useState("Photographer");
+  const [userCountsData, setUserCountsData] = useState();
 
-    const userCounts = async () =>{
-      await ApiGet("admin/count")
+  const userCounts = async () => {
+    await ApiGet("admin/count")
       .then((res) => {
-        console.log("get userCounts",res);
-        setUserCountsData(res?.data?.payload)
+        console.log("get userCounts", res);
+        setUserCountsData(res?.data?.payload);
       })
       .catch((err) => {
         console.log("err", err);
       });
-    }
+  };
 
-    useEffect(() => {
-      userCounts()
-    }, [])
+  useEffect(() => {
+    userCounts();
+  }, []);
 
-    // const countsData = ["Miscellaneous Affiliates","photoEditordata","photographerAata","propertyBuilder"]
-    // const countValue = [userCountsData?.anonymous,userCountsData?.photoEditordata,userCountsData?.photographerAata,userCountsData?.propertyBuilder,userCountsData?.photographerAata]
-    
-    const data = [
-      {
-        "name": "photographer",
-        "uv": userCountsData?.photographerAata,
-      },
-      {
-        "name": "photoEditor",
-        "uv": userCountsData?.photoEditordata,
-      },
-      {
-        "name": "propertyBuilder",
-        "uv": userCountsData?.propertyBuilder
-      },
-      {
-        "name": "miscellaneous Affiliates",
-        "uv": userCountsData?.anonymous
-      }
-    ]
+  // const countsData = ["Miscellaneous Affiliates","photoEditordata","photographerAata","propertyBuilder"]
+  // const countValue = [userCountsData?.anonymous,userCountsData?.photoEditordata,userCountsData?.photographerAata,userCountsData?.propertyBuilder,userCountsData?.photographerAata]
 
-    console.log("data CHART",data);
-    
-    return (
-      <div className={`card card-custom `} style={{backgroundColor:"rgb(187 187 204)"}}>
+  const data = [
+    {
+      name: "photographer",
+      uv: userCountsData?.photographerAata,
+    },
+    {
+      name: "photoEditor",
+      uv: userCountsData?.photoEditordata,
+    },
+    {
+      name: "propertyBuilder",
+      uv: userCountsData?.propertyBuilder,
+    },
+    {
+      name: "miscellaneous Affiliates",
+      uv: userCountsData?.anonymous,
+    },
+  ];
+
+  console.log("data CHART", data);
+
+  return (
+    <div
+      className={`card card-custom `}
+      style={{ backgroundColor: "rgb(187 187 204)" }}
+    >
       {/* Header */}
       <div className="card-header border-0  py-1 px-1 m-5">
         <div className="card-body p-0 position-relative overflow-hidden">
@@ -79,41 +82,49 @@ export function Demo1Dashboard() {
                   marginRight: "15px",
                 }}
               >
-                <div className="bg-light-warning px-6 py-8 rounded-xl">
-                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Photographer _{userCountsData?.photographerAata}</span>
-                  <p
-                    className="text-warning font-weight-bold font-size-h6"
-                    onClick={() => setSelectedTable("Photographer")}
-                  >
+                <div
+                  className="bg-light-warning px-6 py-8 rounded-xl"
+                  onClick={() => setSelectedTable("Photographer")}
+                >
+                  <p className="text-warning font-weight-bold" style={{minHeight: "24px", fontSize: "20px"}}>
+                    {userCountsData?.photographerAata}
+                  </p>
+                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">
                     Photographer
-                  </p>
+                  </span>
                 </div>
-                <div className="bg-light-danger px-6 py-8 rounded-xl">
-                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">PhotoEditor _{userCountsData?.photoEditordata}</span>
-                  <p
-                    className="text-warning font-weight-bold font-size-h6 mt-2"
-                    onClick={() => setSelectedTable("PhotoEditor")}
-                  >
+                <div
+                  className="bg-light-danger px-6 py-8 rounded-xl"
+                  onClick={() => setSelectedTable("PhotoEditor")}
+                >
+                  <p className="text-warning font-weight-bold mt-2" style={{minHeight: "24px", fontSize: "20px"}}>
+                    {userCountsData?.photoEditordata}
+                  </p>
+                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">
                     PhotoEditor
-                  </p>
+                  </span>
                 </div>
-                <div className="bg-light-secondary px-6 py-8 rounded-xl">
-                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Property Builder _{userCountsData?.propertyBuilder}</span>
-                  <p
-                    className="text-warning font-weight-bold font-size-h6"
-                    onClick={() =>setSelectedTable("PropertyBuilder") }
-                  >
-                   Property Builder
+                <div
+                  className="bg-light-secondary px-6 py-8 rounded-xl"
+                  onClick={() => setSelectedTable("PropertyBuilder")}
+                >
+                  <p className="text-warning font-weight-bold" style={{minHeight: "24px", fontSize: "20px"}}>
+                    {userCountsData?.propertyBuilder}
                   </p>
+                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">
+                    Realestate Agent
+                  </span>
                 </div>
-                <div className="bg-light-success px-6 py-8 rounded-xl">
-                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Miscellaneous Affiliates _{userCountsData?.anonymous}</span>
-                  <p
-                    className="text-warning font-weight-bold font-size-h6"
-                    onClick={() => setSelectedTable("OtherUsers")}
-                  >
+                <div
+                  className="bg-light-success px-6 py-8 rounded-xl"
+                  onClick={() => setSelectedTable("OtherUsers")}
+                >
+                  <p className="text-warning font-weight-bold" style={{minHeight: "24px", fontSize: "20px"}}>
+                    {userCountsData?.anonymous}
+                  </p>
+                  <span className="text-warning font-weight-bold font-size-h3 d-block my-2">
                     Miscellaneous Affiliates
-                  </p>
+                  </span>
                 </div>
                 {/* <div className="bg-light-success px-6 py-8 rounded-xl">
                   <span className="text-warning font-weight-bold font-size-h3 d-block my-2">Hired Photographer _{userCountsData?.anonymous}</span>
@@ -128,19 +139,17 @@ export function Demo1Dashboard() {
               </div>
             </div>
             <div className="my-5 mx-5">
-              {
-                selectedTable === "Photographer" ? (
-                  <Photographer />
-                ) : selectedTable === "PhotoEditor" ? (
-                  <PhotoEditor />
-                ) : selectedTable === "PropertyBuilder" ? (
-                  <PropertyBuilder />
-                ) : selectedTable === "OtherUsers" ? (
-                  <OtherUsers />
-                ) : (
-                  <></>
-                )
-              }
+              {selectedTable === "Photographer" ? (
+                <Photographer />
+              ) : selectedTable === "PhotoEditor" ? (
+                <PhotoEditor />
+              ) : selectedTable === "PropertyBuilder" ? (
+                <PropertyBuilder />
+              ) : selectedTable === "OtherUsers" ? (
+                <OtherUsers />
+              ) : (
+                <></>
+              )}
             </div>
           </>
         </div>
@@ -157,14 +166,19 @@ export function Demo1Dashboard() {
               <div className="card ">
                 <div className="body text-center">
                   <div className="App">
-                  <>
-                    <LineChart width={900} height={400} data={data}  margin={{top: 30,right: 30,left: 20,bottom: 30,}}>
-                      <XAxis dataKey="name"/>
-                      <YAxis/>
-                      <CartesianGrid stroke="#eee" strokeDasharray="5 5"/>
-                      <Line type="monotone" dataKey="uv" stroke="#8884d8" />
-                      <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
-                    </LineChart>
+                    <>
+                      <LineChart
+                        width={900}
+                        height={400}
+                        data={data}
+                        margin={{ top: 30, right: 30, left: 20, bottom: 30 }}
+                      >
+                        <XAxis dataKey="name" />
+                        <YAxis />
+                        <CartesianGrid stroke="#eee" strokeDasharray="5 5" />
+                        <Line type="monotone" dataKey="uv" stroke="#8884d8" />
+                        <Line type="monotone" dataKey="pv" stroke="#82ca9d" />
+                      </LineChart>
                     </>
                   </div>
                 </div>
@@ -174,6 +188,5 @@ export function Demo1Dashboard() {
         </div>
       </div>
     </div>
-    );
-  }
-  
+  );
+}

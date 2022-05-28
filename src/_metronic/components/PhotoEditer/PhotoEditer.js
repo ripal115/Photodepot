@@ -24,6 +24,7 @@ const PhotoEditor = () => {
   const [page, setPage] = useState(1);
   const [eId, setEmailId] = useState();
   const [photoEditor, setPhotoEditor] = useState();
+  const [filterPhotoEditor, setFilterPhotoEditor] = useState();
   const [countPerPage, setCountPerPage] = useState(10);
   const [addPhotoEditor, setAddPhotoEditor] = useState(false);
   const [inputValue, setInputValue] = useState([]);
@@ -34,6 +35,7 @@ const PhotoEditor = () => {
   const [loading, setLoading] = useState(false)
 
   console.log("inputValue",inputValue);
+  console.log("errors",errors);
 
   console.log("photoEditorID", photoEditorID);
 
@@ -63,6 +65,7 @@ const PhotoEditor = () => {
       .then((res) => {
         console.log("get photoeditor", res?.data?.payload?.admin);
         setPhotoEditor(res?.data?.payload?.admin);
+        setFilterPhotoEditor(res?.data?.payload?.admin);
       })
       .catch((err) => {
         console.log("err", err);
@@ -84,7 +87,7 @@ const PhotoEditor = () => {
   const validation = () => {
     let isFormValid = true;
     let errors = {};
-    if (!inputValue.email || inputValue.email === "") {
+    if (!inputValue.email.trim() || inputValue.email === "") {
       isFormValid = false;
       errors["email"] = "Please Enter email!";
     }
@@ -92,12 +95,8 @@ const PhotoEditor = () => {
     return isFormValid;
   };
 
-  const handleOnAdd = async () => {
-    // setLoading(true)
-    // let data = {
-    //   email:inputValue?.email,
-    //   type:"photoeditor"
-    // }
+  const handleOnAdd = async (e) => {
+    e.preventDefault()
     if (validation()) {
       setLoading(true)
       await ApiPut("admin/invite", inputValue)
@@ -154,6 +153,8 @@ const PhotoEditor = () => {
 
   const handleOnClose = (e) => {
     setAddPhotoEditor(false);
+    setErrors({})
+      setInputValue({})
   };
 
   const columns = [
@@ -201,7 +202,7 @@ const PhotoEditor = () => {
                     : null
                 }
               >
-                <b>{row.status?.name ? row.status?.name : "-"}</b>
+                <b>{row.status?.name ? (row.status?.name.charAt(0).toUpperCase() + row.status?.name.slice(1)): "-"}</b>
               </div>
             }
           </>
@@ -255,7 +256,7 @@ const PhotoEditor = () => {
                         setEmailId(row._id);
                       }}
                     >
-                      UnBlock
+                      Unblock
                     </button>
                   ) : (
                     <button
@@ -334,22 +335,46 @@ const PhotoEditor = () => {
     },
   };
 
+  const handleSearchData = (e) => {
+    console.log("first", e.target.value);
+    var value = e.target.value.toLowerCase();
+    setPhotoEditor(() => 
+    filterPhotoEditor.filter((item) => 
+    // console.log("filterPhotographerr",item)
+          item?.email?.toLowerCase().includes(value)
+
+    ))
+  }
+
   return (
     <>
-      <div className="card p-1">
         <ToastContainer />
+      <div className="card p-1">
         <div className="p-2 mb-2">
           <div className="row mb-4 pr-3">
             <div className="col d-flex justify-content-between">
-              <h2 className="pl-3 pt-2">PhotoEditor</h2>
+              <h2 className="pl-3 pt-2">Photo Editor</h2>
+            </div>
+              <div className="col">
+              <div>
+                <input
+                   type="text"
+                className={`form-control form-control-lg form-control-solid `}
+                name="title"
+                placeholder="Search Photo Editor"
+                onChange={(e) => handleSearchData(e)}
+              />
+              </div>
+            </div>
+            <div className="cus-medium-button-style button-height">
               <button
-                className="btn btn-primary btn-sm"
-                style={{ minWidth: "100px" }}
+                className="btn btn-warning mr-2"
+                // style={{ minWidth: "100px" }}
                 onClick={() => setAddPhotoEditor(true)}
               >
-                Add
+                Add Photo Editor
               </button>
-            </div>
+              </div>
           </div>
 
           <DataTable
@@ -401,13 +426,13 @@ const PhotoEditor = () => {
         <Dialog
           fullScreen
           open={addPhotoEditor}
-          onClose={(e) => handleOnClose(e)}
+          onClose={ handleOnClose}
         >
           <Toolbar>
             <IconButton
               edge="start"
               color="inherit"
-              onClick={(e) => handleOnClose(e)}
+              onClick={handleOnClose}
               aria-label="close"
             >
               <CloseIcon />
@@ -446,10 +471,10 @@ const PhotoEditor = () => {
             </div>
             <div className="d-flex align-items-center justify-content-center">
               <button
-                className="btn btn-success mr-2"
+                className="btn btn-warning mr-2"
                 onClick={(e) => handleOnAdd(e)}
               >
-                Add
+                Add Photo Editor
                 {loading && (
                         <span className="mx-3 spinner spinner-white"></span>
                       )}

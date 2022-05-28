@@ -20,6 +20,7 @@ const OtherUsers = () => {
   const [page, setPage] = useState(1);
   const [eId, setEmailId] = useState();
   const [otherUsers, setOtherUsers] = useState()
+  const [filterOtherUsers, setFilterOtherUsers] = useState()
   const [countPerPage, setCountPerPage] = useState(10);
   const [statusName, setStatusName] = useState();
   const [addOtherUsers, setAddOtherUsers] = useState(false);
@@ -30,6 +31,7 @@ const OtherUsers = () => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
+
 
   useEffect(() => {
     getNewsData();
@@ -56,7 +58,7 @@ const OtherUsers = () => {
   const validation = () => {
     let isFormValid = true;
     let errors = {};
-    if (!inputValue.email || inputValue.email === "") {
+    if (!inputValue.email.trim() || inputValue.email === "") {
       isFormValid = false;
       errors["email"] = "Please Enter email!";
     }
@@ -65,8 +67,8 @@ const OtherUsers = () => {
   };
 
   const handleOnAdd = async () => {
-    setLoading(true)
     if (validation()) {
+      setLoading(true)
     await ApiPut("admin/invite", inputValue)
       .then((res) => {
         console.log("res admin/invite", res);
@@ -106,6 +108,7 @@ const OtherUsers = () => {
       .then((res) => {
         console.log("get photoeditor",res);
         setOtherUsers(res?.data?.payload?.admin);
+        setFilterOtherUsers(res?.data?.payload?.admin);
       })
       .catch((err) => {
         console.log("err", err);
@@ -124,6 +127,8 @@ const OtherUsers = () => {
 
   const handleOnClose = (e) => {
     setAddOtherUsers(false);
+    setErrors({})
+    setInputValue({})
   };
 
   const columns = [
@@ -170,7 +175,7 @@ const OtherUsers = () => {
                       : null
                   }
                 >
-                  <b>{row.status?.name ? row.status?.name : "-"}</b>
+                  <b>{row.status?.name ? (row.status?.name.charAt(0).toUpperCase() + row.status?.name.slice(1)) : "-"}</b>
                 </div>
               }
             </>
@@ -222,7 +227,7 @@ const OtherUsers = () => {
                           setEmailId(row._id);
                         }}
                       >
-                        UnBlock
+                        Unblock
                       </button>
                     ) : (
                       <button
@@ -278,6 +283,17 @@ const OtherUsers = () => {
       },
     },
   };
+  
+  const handleSearchData = (e) => {
+    console.log("first", e.target.value);
+    var value = e.target.value.toLowerCase();
+    setOtherUsers(() => 
+    filterOtherUsers.filter((item) => 
+    // console.log("filterPhotographerr",item)
+          item?.email?.toLowerCase().includes(value)
+
+    ))
+  }
 
   return (
     <>
@@ -287,13 +303,24 @@ const OtherUsers = () => {
           <div className="row mb-4 pr-3">
             <div className="col d-flex justify-content-between">
               <h2 className="pl-3 pt-2">Miscellaneous Affiliates</h2>
+            </div>
+            <div className="col">
+              <div>
+                <input
+                   type="text"
+                className={`form-control form-control-lg form-control-solid `}
+                name="title"
+                placeholder="Search Miscellaneous Affiliates"
+                onChange={(e) => handleSearchData(e)}
+              />
+              </div>
+            </div>
               <button
-                className="btn btn-primary btn-sm" style={{minWidth: "100px"}}
+                className="btn btn-warning btn-sm"
                 onClick={() => setAddOtherUsers(true)}
               >
-                Add
+                Add Miscellaneous Affiliates
               </button>
-            </div>
           </div>
           
           <DataTable
@@ -382,10 +409,10 @@ const OtherUsers = () => {
             </div>
             <div className="d-flex align-items-center justify-content-center">
               <button
-                className="btn btn-success mr-2"
+                className="btn btn-warning mr-2"
                 onClick={(e) => handleOnAdd(e)}
               >
-                Add
+                 Add Miscellaneous Affiliates
                 {loading && (
                         <span className="mx-3 spinner spinner-white"></span>
                       )}

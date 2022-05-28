@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
+import { ToastContainer } from "react-toastify";
 
 import { ApiGet } from "../../../helpers/API/ApiData";
 
 const ReportAbuse = () => {
   const [reportAbuse, setReportAbuse] = useState();
+  const [filterReportAbuse, setFilterReportAbuse] = useState();
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [countPerPage, setCountPerPage] = useState(10);
   const [page, setPage] = useState(1);
@@ -15,6 +17,7 @@ const ReportAbuse = () => {
       .then((res) => {
         console.log("getabusers", res);
         setReportAbuse(res?.data?.payload?.reportAbuse);
+        setFilterReportAbuse(res?.data?.payload?.reportAbuse);
       })
       .catch((err) => {
         console.log("err", err);
@@ -108,8 +111,42 @@ const ReportAbuse = () => {
     },
   };
 
+  const handleSearchData = (e) => {
+    console.log("first", e.target.value);
+    var value = e.target.value.toLowerCase();
+    setReportAbuse(() => 
+    filterReportAbuse.filter((item) => 
+    // console.log("filterPhotographerr",item)
+          item?.from_id?.firstName?.toLowerCase().includes(value) ||
+          item?.from_id?.lastName?.toLowerCase().includes(value) ||
+          item?.to_id?.firstName?.toLowerCase().includes(value) ||
+          item?.to_id?.lastName?.toLowerCase().includes(value)
+
+    ))
+  }
+
   return (
     <>
+    <div className="card p-1">
+        <ToastContainer />
+        <div className="p-2 mb-2">
+        <div className="row mb-4 pr-3">
+            <div className="col d-flex justify-content-between">
+              <h2 className="pl-3 pt-2">Report Abuse</h2>
+            </div>
+            <div className="col">
+              <div>
+                
+                <input
+                   type="text"
+                className={`form-control form-control-lg form-control-solid `}
+                name="title"
+                placeholder="Search Report Abuse"
+                onChange={(e) => handleSearchData(e)}
+              />
+              </div>
+            </div>
+          </div>
       <DataTable
         columns={columns}
         data={reportAbuse}
@@ -127,6 +164,8 @@ const ReportAbuse = () => {
           setCountPerPage(rowPerPage);
         }}
       />
+      </div>
+      </div>
     </>
   );
 };

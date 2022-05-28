@@ -48,7 +48,7 @@ export function AsideMenuList({ layoutProps }) {
             <span className="svg-icon menu-icon">
               <img alt="" src="media/allIconsForTable/feedback.svg" />
             </span>
-            <span className="menu-text">PhotoEditor</span>
+            <span className="menu-text">Photo Editor</span>
           </NavLink>
         </li>
         <li
@@ -62,7 +62,7 @@ export function AsideMenuList({ layoutProps }) {
             <span className="svg-icon menu-icon">
               <img alt="" src="media/allIconsForTable/feedback.svg" />
             </span>
-            <span className="menu-text">Property Builder</span>
+            <span className="menu-text">Realestate Agent</span>
           </NavLink>
         </li>
         <li

@@ -17,6 +17,7 @@ const Photographer = () => {
   const [page, setPage] = useState(1);
   const [photographer, setPhotographer] = useState()
   const [countPerPage, setCountPerPage] = useState(10);
+  const [filterPhotographer, setFilterPhotographer] = useState()
 
   useEffect(() => {
     getNewsData();
@@ -28,6 +29,7 @@ const Photographer = () => {
       .then((res) => {
           console.log("get photographer",res);
         setPhotographer(res?.data?.payload?.admin)
+        setFilterPhotographer(res?.data?.payload?.admin)
       })
       .catch((err) => {
         console.log("err", err);
@@ -95,6 +97,19 @@ const Photographer = () => {
     },
   };
 
+  console.log("filterPhotographer",filterPhotographer)
+
+  const handleSearchData = (e) => {
+    console.log("first", e.target.value);
+    var value = e.target.value.toLowerCase();
+    setPhotographer(() => 
+    filterPhotographer.filter((item) => 
+    // console.log("filterPhotographerr",item)
+          item?.email?.toLowerCase().includes(value)
+
+    ))
+  }
+
   return (
     <>
       <div className="card p-1">
@@ -103,6 +118,18 @@ const Photographer = () => {
           <div className="row mb-4 pr-3">
             <div className="col d-flex justify-content-between">
               <h2 className="pl-3 pt-2">Photographer</h2>
+            </div>
+            <div className="col">
+              <div>
+                
+                <input
+                   type="text"
+                className={`form-control form-control-lg form-control-solid `}
+                name="title"
+                placeholder="Search Photographer"
+                onChange={(e) => handleSearchData(e)}
+              />
+              </div>
             </div>
           </div>
 

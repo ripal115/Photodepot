@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { ApiGet } from "../../../helpers/API/ApiData";
 import DataTable, { defaultThemes } from "react-data-table-component";
+import { ToastContainer } from "react-toastify";
 
 const AdminReview = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [adminReview, setAdminReview] = useState();
+  const [filterAdminReview, setFilterAdminReview] = useState();
   const [countPerPage, setCountPerPage] = useState(10);
   const [page, setPage] = useState(1);
 
@@ -14,6 +16,7 @@ const AdminReview = () => {
       .then((res) => {
         console.log("getadminreview", res);
         setAdminReview(res?.data?.payload?.review)
+        setFilterAdminReview(res?.data?.payload?.review)
       })
       .catch((err) => {
         console.log("err", err);
@@ -110,8 +113,42 @@ const AdminReview = () => {
   };
    // * Table Style
 
+   const handleSearchData = (e) => {
+    console.log("first", e.target.value);
+    var value = e.target.value.toLowerCase();
+    setAdminReview(() => 
+    filterAdminReview.filter((item) => 
+    // console.log("filterPhotographerr",item)
+          item?.form?.firstName?.toLowerCase().includes(value) ||
+          item?.form?.lastName?.toLowerCase().includes(value) ||
+          item?.to?.firstName?.toLowerCase().includes(value) ||
+          item?.to?.lastName?.toLowerCase().includes(value)
+
+    ))
+  }
+
   return (
     <>
+    <div className="card p-1">
+        <ToastContainer />
+        <div className="p-2 mb-2">
+        <div className="row mb-4 pr-3">
+            <div className="col d-flex justify-content-between">
+              <h2 className="pl-3 pt-2">Admin Review</h2>
+            </div>
+            <div className="col">
+              <div>
+                
+                <input
+                   type="text"
+                className={`form-control form-control-lg form-control-solid `}
+                name="title"
+                placeholder="Search Admin Review"
+                onChange={(e) => handleSearchData(e)}
+              />
+              </div>
+            </div>
+          </div>
       <DataTable
         columns={columns}
         data={adminReview}
@@ -129,6 +166,8 @@ const AdminReview = () => {
           setCountPerPage(rowPerPage);
         }}
       />
+      </div>
+      </div>
     </>
   );
 };
