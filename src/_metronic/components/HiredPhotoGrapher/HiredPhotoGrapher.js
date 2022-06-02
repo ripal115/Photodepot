@@ -20,6 +20,7 @@ const HiredPhotoGrapher = () => {
   const [showViewMore, setShowViewMore] = useState(false);
   const [photoEditorID, setPhotoEditorID] = useState();
 
+  // For get Hire photoEditor
   const getHirePhotoEditorData = async () => {
     setIsLoaderVisible(true);
     await ApiGet(`hire/getAllHire`)
@@ -33,12 +34,14 @@ const HiredPhotoGrapher = () => {
     setIsLoaderVisible(false);
   };
 
+  //For viewmore 
   const handleViewMore = (e, rows) => {
     console.log("rows", rows);
     setPhotoEditorID(rows);
     setShowViewMore(true);
   };
 
+  //For modal close
   const handleOnClose = (e) => {
     setShowViewMore(false);
   };
@@ -47,6 +50,7 @@ const HiredPhotoGrapher = () => {
     getHirePhotoEditorData();
   }, []);
 
+  //For Table columns
   const columns = [
     {
       name: "SNo",

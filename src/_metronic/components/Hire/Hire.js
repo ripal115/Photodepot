@@ -7,6 +7,8 @@ const Hire = (props) => {
   const { photoEditorID } = props;
   const [photoEditorData, setPhotoEditorData] = useState();
   console.log("photoEditorID", photoEditorID);
+
+  // Get PhotoEditor api
   const getViewPhotoEditordetails = () => {
     ApiGet(`hire/getAllHire`)
       .then((res) => {

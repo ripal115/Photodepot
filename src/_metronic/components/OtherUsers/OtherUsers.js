@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
 import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
-// import Slide from "@material-ui/core/Slide";
-// import DeleteIcon from "@material-ui/icons/Delete";
 import { Modal } from "react-bootstrap";
 import IconButton from "@material-ui/core/IconButton";
 import { Button } from "react-bootstrap";
@@ -26,17 +24,18 @@ const OtherUsers = () => {
   const [addOtherUsers, setAddOtherUsers] = useState(false);
   const [inputValue, setInputValue] = useState([]);
   const [errors, setErrors] = useState("");
-
+  
+  //For add new user input handle change
   const handleOnChange = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
-
   useEffect(() => {
-    getNewsData();
+    getOtherUser();
   }, []);
 
+  //For active / Inactive button
   const HandleonActive = async (e, id, name) => {
     let data = {
       id: id,
@@ -47,7 +46,7 @@ const OtherUsers = () => {
       .then((res) => {
         console.log("res", res);
         setShow(false);
-        getNewsData();
+        getOtherUser();
         toast.success(res?.data?.message);
       })
       .catch((err) => {
@@ -55,6 +54,7 @@ const OtherUsers = () => {
       });
   };
 
+  //For email input validation
   const validation = () => {
     let isFormValid = true;
     let errors = {};
@@ -66,6 +66,7 @@ const OtherUsers = () => {
     return isFormValid;
   };
 
+  //For new other user add api
   const handleOnAdd = async () => {
     if (validation()) {
       setLoading(true)
@@ -84,6 +85,7 @@ const OtherUsers = () => {
     }
   };
 
+  // For block / unblock button (admin/block api)
   const statusBlock = async () => {
     console.log("statusName", statusName);
     let data = {
@@ -94,7 +96,7 @@ const OtherUsers = () => {
       .then((res) => {
         console.log("res", res);
         setShow(false);
-        getNewsData();
+        getOtherUser();
         toast.success(res?.data?.message);
       })
       .catch((err) => {
@@ -102,7 +104,8 @@ const OtherUsers = () => {
       });
   };
 
-  const getNewsData = async () => {
+//For get other user api
+  const getOtherUser = async () => {
     setIsLoaderVisible(true);
     await ApiGet("admin/get-admins?roleType=anonymous")
       .then((res) => {
@@ -117,20 +120,25 @@ const OtherUsers = () => {
     setIsLoaderVisible(false);
   };
 
-  const handleMenu = () => {
+  //For status name set
+  const handleMenu = (name) => {
+    setStatusName(name)
     setShow(true);
   };
 
+  // For modal close
   const handleClose = () => {
     setShow(false);
   };
 
+  // For modal close
   const handleOnClose = (e) => {
     setAddOtherUsers(false);
     setErrors({})
     setInputValue({})
   };
 
+  // For table columns
   const columns = [
     {
       name: "SNo",
@@ -284,14 +292,13 @@ const OtherUsers = () => {
     },
   };
   
+  // for handle search input
   const handleSearchData = (e) => {
     console.log("first", e.target.value);
     var value = e.target.value.toLowerCase();
     setOtherUsers(() => 
     filterOtherUsers.filter((item) => 
-    // console.log("filterPhotographerr",item)
           item?.email?.toLowerCase().includes(value)
-
     ))
   }
 

@@ -32,33 +32,32 @@ const PhotoEditor = () => {
   const [dataViewMore, setDataViewMore] = useState(false);
   const [statusName, setStatusName] = useState();
   const [photoEditorID, setPhotoEditorID] = useState();
-  const [loading, setLoading] = useState(false)
-
-  console.log("inputValue",inputValue);
-  console.log("errors",errors);
+  const [loading, setLoading] = useState(false);
 
   console.log("photoEditorID", photoEditorID);
-
-  console.log("statusName", statusName);
   useEffect(() => {
     getPhotoEditorData();
   }, []);
 
+  // For view more
   const handleViewMore = (row) => {
     setDataViewMore(true);
-    console.log("row1111", row);
+    console.log("row photoeditor", row);
     setPhotoEditorID(row?._id);
   };
 
+  // For view more close modal
   const handleViewMoreClose = () => {
     setDataViewMore(false);
   };
 
+  // For input handle change
   const handleOnChange = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
 
+  //For get photoeditor data api
   const getPhotoEditorData = async () => {
     setIsLoaderVisible(true);
     await ApiGet("admin/get-admins?roleType=photoeditor")
@@ -74,6 +73,7 @@ const PhotoEditor = () => {
     setIsLoaderVisible(false);
   };
 
+  // For statu name set
   const handleMenu = (name) => {
     console.log("name", name);
     setStatusName(name);
@@ -84,10 +84,15 @@ const PhotoEditor = () => {
     setShow(false);
   };
 
+  const regexEmail =
+    /^(([^<>()[\],;:\s@]+([^<>()[\],;:\s@]+)*)|(.+))@(([^<>()[\],;:\s@]+)+[^<>()[\],;:\s@]{2,})$/i;
+
+  // For email validation
   const validation = () => {
     let isFormValid = true;
     let errors = {};
-    if (!inputValue.email.trim() || inputValue.email === "") {
+    if (!inputValue.email || regexEmail.test(inputValue.email) === false) {
+      setLoading(false);
       isFormValid = false;
       errors["email"] = "Please Enter email!";
     }
@@ -95,25 +100,27 @@ const PhotoEditor = () => {
     return isFormValid;
   };
 
+  // For new photoEditor invitation api
   const handleOnAdd = async (e) => {
-    e.preventDefault()
+    e.preventDefault();
+    setLoading(true);
     if (validation()) {
-      setLoading(true)
       await ApiPut("admin/invite", inputValue)
         .then((res) => {
-          setLoading(false)
+          setLoading(false);
           console.log("res admin/invite", res);
           toast.success(res?.data?.message);
           setAddPhotoEditor(false);
         })
         .catch((err) => {
-          setLoading(false)
+          setLoading(false);
           console.log("err");
           toast.error(err?.response?.data?.message);
         });
     }
   };
 
+  // For active / inactive status (admin/block api call)
   const HandleonActive = async (e, id, name) => {
     let data = {
       id: id,
@@ -133,6 +140,7 @@ const PhotoEditor = () => {
   };
   console.log("statusName", statusName);
 
+  // For block / unblock status (admin/block api call)
   const statusBlock = async () => {
     console.log("statusName", statusName);
     let data = {
@@ -151,12 +159,14 @@ const PhotoEditor = () => {
       });
   };
 
+  // For close modal
   const handleOnClose = (e) => {
     setAddPhotoEditor(false);
-    setErrors({})
-      setInputValue({})
+    setErrors({});
+    setInputValue({});
   };
 
+  //For table columns
   const columns = [
     {
       name: "SNo",
@@ -202,7 +212,12 @@ const PhotoEditor = () => {
                     : null
                 }
               >
-                <b>{row.status?.name ? (row.status?.name.charAt(0).toUpperCase() + row.status?.name.slice(1)): "-"}</b>
+                <b>
+                  {row.status?.name
+                    ? row.status?.name.charAt(0).toUpperCase() +
+                      row.status?.name.slice(1)
+                    : "-"}
+                </b>
               </div>
             }
           </>
@@ -335,35 +350,36 @@ const PhotoEditor = () => {
     },
   };
 
+  //For search input
   const handleSearchData = (e) => {
-    console.log("first", e.target.value);
+    console.log("search", e.target.value);
     var value = e.target.value.toLowerCase();
-    setPhotoEditor(() => 
-    filterPhotoEditor.filter((item) => 
-    // console.log("filterPhotographerr",item)
-          item?.email?.toLowerCase().includes(value)
-
-    ))
-  }
+    setPhotoEditor(() =>
+      filterPhotoEditor.filter((item) =>
+        // console.log("filterPhotographerr",item)
+        item?.email?.toLowerCase().includes(value)
+      )
+    );
+  };
 
   return (
     <>
-        <ToastContainer />
+      <ToastContainer />
       <div className="card p-1">
         <div className="p-2 mb-2">
           <div className="row mb-4 pr-3">
             <div className="col d-flex justify-content-between">
               <h2 className="pl-3 pt-2">Photo Editor</h2>
             </div>
-              <div className="col">
+            <div className="col">
               <div>
                 <input
-                   type="text"
-                className={`form-control form-control-lg form-control-solid `}
-                name="title"
-                placeholder="Search Photo Editor"
-                onChange={(e) => handleSearchData(e)}
-              />
+                  type="text"
+                  className={`form-control form-control-lg form-control-solid `}
+                  name="title"
+                  placeholder="Search Photo Editor"
+                  onChange={(e) => handleSearchData(e)}
+                />
               </div>
             </div>
             <div className="cus-medium-button-style button-height">
@@ -374,7 +390,7 @@ const PhotoEditor = () => {
               >
                 Add Photo Editor
               </button>
-              </div>
+            </div>
           </div>
 
           <DataTable
@@ -423,11 +439,7 @@ const PhotoEditor = () => {
         </div>
       </div>
       {addPhotoEditor && (
-        <Dialog
-          fullScreen
-          open={addPhotoEditor}
-          onClose={ handleOnClose}
-        >
+        <Dialog fullScreen open={addPhotoEditor} onClose={handleOnClose}>
           <Toolbar>
             <IconButton
               edge="start"
@@ -476,8 +488,8 @@ const PhotoEditor = () => {
               >
                 Add Photo Editor
                 {loading && (
-                        <span className="mx-3 spinner spinner-white"></span>
-                      )}
+                  <span className="mx-3 spinner spinner-white"></span>
+                )}
               </button>
             </div>
           </>

@@ -15,10 +15,13 @@ export default function OtherUsersSignup() {
   const regexEmail =
     /^(([^<>()[\],;:\s@]+([^<>()[\],;:\s@]+)*)|(.+))@(([^<>()[\],;:\s@]+)+[^<>()[\],;:\s@]{2,})$/i;
 
+ //For handle change otheruser signup input
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
   };
+
+  //For number validation
   const bindInput = (value) => {
     var regex = new RegExp("^[^0-9]*$");
     var key = String.fromCharCode(
@@ -30,6 +33,7 @@ export default function OtherUsersSignup() {
     }
   };
 
+  //for input fild validation
   const validation = () => {
     let isFormValid = true;
     let errors = {};
@@ -64,17 +68,10 @@ export default function OtherUsersSignup() {
         return isFormValid;
   };
 
+  // For other user signup api call 
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-
-    // let formData = new FormData();
-    //   formData.append("email", loginData.email);
-    //   formData.append("password", loginData.password);
-    //   formData.append("contact", loginData.phone);
-    //   formData.append("firstName", loginData.firstname);
-    //   formData.append("lastName", loginData.lastname);
-    //   formData.append("role", "6283240ebb6a3e0cac847a13");
     let data = {
       email: loginData.email,
       password: loginData.password,

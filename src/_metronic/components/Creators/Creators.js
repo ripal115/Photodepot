@@ -36,20 +36,6 @@ const Creators = () => {
     getCompanyData();
   }, []);
 
-  // const getCompanyData = async () => {
-  //   setIsLoaderVisible(true);
-  //   await ApiGet("creator/find-all")
-  //     .then((res) => {
-  //       console.log("creator data", res.data.creator);
-  //       setCreatorData(res.data.creator);
-  //     })
-  //     .catch((err) => {
-  //       console.log("err", err);
-  //     });
-
-  //   setIsLoaderVisible(false);
-  // };
-
   const columns = [
     {
       name: "SNo",
@@ -142,23 +128,6 @@ const Creators = () => {
       )
     );
   };
-
-  // Hook
-  // function useDebounce(value, delay) {
-  //   const [debouncedValue, setDebouncedValue] = useState(value);
-  //   useEffect(() => {
-  //     const handler = setTimeout(() => {
-  //       setDebouncedValue(value);
-  //     }, delay);
-
-  //     return () => {
-  //       clearTimeout(handler);
-  //     };
-  //   }, [value, delay]);
-  //   return debouncedValue;
-  // }
-
-  // const [dataCSV, setDataCSV] = useState([]);
 
   return (
     <>

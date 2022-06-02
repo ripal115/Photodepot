@@ -16,6 +16,7 @@ export default function PhotoEditorSignup() {
   const regexEmail =
     /^(([^<>()[\],;:\s@]+([^<>()[\],;:\s@]+)*)|(.+))@(([^<>()[\],;:\s@]+)+[^<>()[\],;:\s@]{2,})$/i;
 
+  //
   const handleChange = (e) => {
     setLoginData({ ...loginData, [e.target.name]: e.target.value });
     setErrors({ ...errors, [e.target.name]: "" });
@@ -67,13 +68,6 @@ export default function PhotoEditorSignup() {
   const handleSubmit = async (e) => {
     setLoader(true);
     e.preventDefault();
-    // let formData = new FormData();
-    //   formData.append("email", loginData.email);
-    //   formData.append("password", loginData.password);
-    //   formData.append("contact", loginData.phone);
-    //   formData.append("firstName", loginData.firstname);
-    //   formData.append("lastName", loginData.lastname);
-    //   formData.append("role", "628323dcbb6a3e0cac847a09");
     let data = {
       email: loginData.email,
       password: loginData.password,

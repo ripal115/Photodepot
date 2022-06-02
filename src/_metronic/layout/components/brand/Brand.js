@@ -4,7 +4,6 @@ import objectPath from "object-path";
 import SVG from "react-inlinesvg";
 import { useHtmlClassService } from "../../_core/MetronicLayout";
 import { toAbsoluteUrl } from "../../../_helpers";
-import Logo from "../../../layout/components/Logos/Headerlogo.png";
 // import logoImg from "../../../../../public/media/logos/honda-logo.png";
 
 export function Brand() {

@@ -7,7 +7,7 @@ import ForgotPassword from "./ForgotPassword";
 import "../../../../_metronic/_assets/sass/pages/login/classic/login-1.scss";
 import Changepassword from "../pages/changepassowrd"; 
 // import Logo from "../../../../_metronic/layout/components/Logos/new.png";
-import Logo from "../../../../_metronic/layout/components/Logos/BB.png"
+import Logo from "../../../../_metronic/layout/components/Logos/photodepot-logo.png"
 import Signup from "./Signup";
 export function AuthPage() { 
   return (

@@ -5,6 +5,8 @@ import moment from "moment";
 const ViewHiredPhotoEditor = (props) => {
   const { photoEditorID } = props;
   console.log("photoEditorID", photoEditorID);
+
+  //For View PhotoEdtior details
   // const getViewPhotoEditordetails = () => {
   //   ApiGet(
   //     `hire/getAllHire?photoeditor_id=${photoEditorID?.photoeditor_id?.role}`

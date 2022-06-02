@@ -175,34 +175,30 @@ export function AsideMenuList({ layoutProps }) {
         </div>
 
         <li
-                className={`menu-item ${getMenuItemActive(
-                  "/reportabuse",
-                  false
-                )}`}
-                aria-haspopup="true"
-              >
-                <NavLink className="menu-link" to="/reportabuse">
-                  <span className="svg-icon menu-icon">
-                    <img alt="" src="media/allIconsForTable/feedback.svg" />
-                  </span>
-                  <span className="menu-text">Report Abuse</span>
-                </NavLink>
-              </li>
+          className={`menu-item ${getMenuItemActive("/reportabuse", false)}`}
+          aria-haspopup="true"
+        >
+          <NavLink className="menu-link" to="/reportabuse">
+            <span className="svg-icon menu-icon">
+              {/* <img alt="" src="media/allIconsForTable/feedback.svg" /> */}
+              <i class="fa-solid fa-comments"></i>
+            </span>
+            <span className="menu-text">Report Abuse</span>
+          </NavLink>
+        </li>
         <li
-                className={`menu-item ${getMenuItemActive(
-                  "/adminreview",
-                  false
-                )}`}
-                aria-haspopup="true"
-              >
-                <NavLink className="menu-link" to="/adminreview">
-                  <span className="svg-icon menu-icon">
-                    <img alt="" src="media/allIconsForTable/feedback.svg" />
-                  </span>
-                  <span className="menu-text">Review</span>
-                </NavLink>
-              </li>
-          
+          className={`menu-item ${getMenuItemActive("/adminreview", false)}`}
+          aria-haspopup="true"
+        >
+          <NavLink className="menu-link" to="/adminreview">
+            <span className="svg-icon menu-icon">
+              {/* <img alt="" src="media/allIconsForTable/feedback.svg" /> */}
+              <i class="fa-solid fa-comments"></i>
+            </span>
+            <span className="menu-text">Review</span>
+          </NavLink>
+        </li>
+
         {/* <li
             className={`menu-item ${getMenuItemActive("/adminData", false)}`}
             aria-haspopup="true"

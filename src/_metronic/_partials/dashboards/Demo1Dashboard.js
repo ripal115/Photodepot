@@ -85,6 +85,7 @@ export function Demo1Dashboard() {
                 <div
                   className="bg-light-warning px-6 py-8 rounded-xl"
                   onClick={() => setSelectedTable("Photographer")}
+                  style={{cursor:"pointer"}}
                 >
                   <p className="text-warning font-weight-bold" style={{minHeight: "24px", fontSize: "20px"}}>
                     {userCountsData?.photographerAata}
@@ -96,6 +97,7 @@ export function Demo1Dashboard() {
                 <div
                   className="bg-light-danger px-6 py-8 rounded-xl"
                   onClick={() => setSelectedTable("PhotoEditor")}
+                  style={{cursor:"pointer"}}
                 >
                   <p className="text-warning font-weight-bold mt-2" style={{minHeight: "24px", fontSize: "20px"}}>
                     {userCountsData?.photoEditordata}
@@ -107,6 +109,7 @@ export function Demo1Dashboard() {
                 <div
                   className="bg-light-secondary px-6 py-8 rounded-xl"
                   onClick={() => setSelectedTable("PropertyBuilder")}
+                  style={{cursor:"pointer"}}
                 >
                   <p className="text-warning font-weight-bold" style={{minHeight: "24px", fontSize: "20px"}}>
                     {userCountsData?.propertyBuilder}
@@ -118,6 +121,7 @@ export function Demo1Dashboard() {
                 <div
                   className="bg-light-success px-6 py-8 rounded-xl"
                   onClick={() => setSelectedTable("OtherUsers")}
+                  style={{cursor:"pointer"}}
                 >
                   <p className="text-warning font-weight-bold" style={{minHeight: "24px", fontSize: "20px"}}>
                     {userCountsData?.anonymous}

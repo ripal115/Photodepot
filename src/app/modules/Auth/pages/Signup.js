@@ -202,9 +202,7 @@ export default function Signup() {
         >
           <span className="pr-2">Sign up</span>
           {loader && (
-            <div class="spinner-grow text-light" role="status">
-              <span class="sr-only">Loading...</span>
-            </div>
+            <span className="mx-3 spinner spinner-white"></span>
           )}
         </button>
       </div>

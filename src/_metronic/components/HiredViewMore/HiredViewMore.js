@@ -6,26 +6,7 @@ const HiredViewMore = (props) => {
   const { photoEditorID } = props;
   const [getAdminData, setGetAdminData] = useState();
 
-  // const handleOnChange = (e) => {
-  //   const { name, value } = e.target;
-  //   console.log("2222222", e.target.value);
-  //   setGetAdminData({ ...getAdminData, [name]: value });
-  //   setErrors({ ...errors, [name]: "" });
-  // };
-  // const handleOnDateChnage = (e) => {
-  //   const { name, value } = e.target;
-  //   console.log("e.atrget", value);
-  //   setGetAdminData(value);
-  //   // setInputValueDate({ ...inputValueDate, [name]: moment(value, "YYYY-MM-DD").format("DD-MM-YYYY") });
-  //   setErrors({ ...errors, [name]: "" });
-  // };
-
-  // const handleOnChnageAddImg = (e) => {
-  //   const { name } = e.target;
-  //   setGetAdminData({ ...getAdminData, [name]: e.target.files[0] });
-  //   setErrors({ ...errors, [name]: "" });
-  // };
-
+  // For get all photoEditor data
   const getAllAdmin = () => {
     // let formData = new FormData();
     // formData.append("profilePhoto", getAdminData?.profilePhoto);

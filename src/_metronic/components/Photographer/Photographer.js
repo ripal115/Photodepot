@@ -1,29 +1,33 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
-import { ApiGet } from "../../../helpers/API/ApiData";
+import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
 // import Slide from "@material-ui/core/Slide";
 // import DeleteIcon from "@material-ui/icons/Delete";
 // import { Modal } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
-import { ToastContainer } from "react-toastify";
+import { ToastContainer ,toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
+import { Button, Modal } from "react-bootstrap";
 // const Transition = React.forwardRef(function Transition(props, ref) {
 //   return <Slide direction="up" ref={ref} {...props} />;
 // });
 
 const Photographer = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
+  const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
   const [photographer, setPhotographer] = useState()
+  const [eId, setEmailId] = useState();
+  const [statusName, setStatusName] = useState();
   const [countPerPage, setCountPerPage] = useState(10);
   const [filterPhotographer, setFilterPhotographer] = useState()
 
   useEffect(() => {
-    getNewsData();
+    getPhotographerData();
   }, []);
 
-  const getNewsData = async () => {
+  const getPhotographerData = async () => {
     setIsLoaderVisible(true);
     await ApiGet("admin/get-admins?roleType=photographer")
       .then((res) => {
@@ -37,6 +41,56 @@ const Photographer = () => {
 
     setIsLoaderVisible(false);
   };
+
+  const handleMenu = (name) => {
+    console.log("name", name);
+    setStatusName(name);
+    setShow(true);
+  };
+
+  const HandleonActive = async (e, id, name) => {
+    let data = {
+      id: id,
+      status: name === "active" ? "inactive" : "active",
+      // status:"active"
+    };
+    await ApiPut("admin/block", data)
+      .then((res) => {
+        console.log("res", res);
+        setShow(false);
+        getPhotographerData();
+        toast.success(res?.data?.message);
+      })
+      .catch((err) => {
+        console.log("err");
+      });
+  };
+
+  const statusBlock = async () => {
+    console.log("statusName", statusName);
+    let data = {
+      id: eId,
+      status: statusName === "blocked" ? "inactive" : "blocked",
+    };
+    await ApiPut("admin/block", data)
+      .then((res) => {
+        console.log("res", res);
+        setShow(false);
+        getPhotographerData();
+        toast.success(res?.data?.message);
+      })
+      .catch((err) => {
+        console.log("err");
+      });
+  };
+
+  const handleClose = () => {
+    setShow(false);
+  };
+
+  useEffect(() => {
+    getPhotographerData();
+  }, []);
 
   const columns = [
     {
@@ -60,7 +114,104 @@ const Photographer = () => {
         selector: "Date",
         sortable: true,
         width: "200px",
+    },
+    {
+      name: "Status",
+      width: "20%",
+      color: "red",
+      fontWeight: 500,
+      cell: (row) => {
+        //text-success text-warning
+        return (
+          <>
+            {
+              <div
+                className={
+                  row.status?.name === "blocked"
+                    ? "text-danger"
+                    : row.status?.name === "inactive"
+                    ? "text-warning"
+                    : row.status?.name === "active"
+                    ? "text-success"
+                    : null
+                }
+              >
+                <b>{row.status?.name ? (row.status?.name.charAt(0).toUpperCase() + row.status?.name.slice(1)): "-"}</b>
+              </div>
+            }
+          </>
+        );
       },
+      selector: "projectName",
+    },
+    {
+      name: "Actions",
+      width: "20%",
+      cell: (row) => {
+        return (
+          <>
+            <div className=" d-flex justify-content-center w-100">
+              <div
+                className="pl-3 cursor-pointer d-flex"
+                style={{ columnGap: "50px" }}
+              >
+                <div>
+                  {row?.status?.name === "active" ? (
+                    <button
+                      className="btn btn-secondary btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={(e) =>
+                        HandleonActive(e, row._id, row?.status?.name)
+                      }
+                    >
+                      Inactive
+                    </button>
+                  ) : row?.status?.name === "inactive" ? (
+                    <button
+                      className="btn btn-primary btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={(e) =>
+                        HandleonActive(e, row._id, row?.status?.name)
+                      }
+                    >
+                      Active
+                    </button>
+                  ) : (
+                    <div style={{ minWidth: "80px" }} />
+                  )}
+                </div>
+                <div>
+                  {row?.status?.name === "blocked" ? (
+                    <button
+                      className="btn btn-danger btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={() => {
+                        handleMenu(row?.status?.name);
+                        setEmailId(row._id);
+                      }}
+                    >
+                      Unblock
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-danger btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={() => {
+                        handleMenu(row?.status?.name);
+                        setEmailId(row._id);
+                      }}
+                    >
+                      Block
+                    </button>
+                  )}
+                </div>
+              </div>
+            </div>
+          </>
+        );
+      },
+      selector: "website",
+    },
 
   ];
   // * Table Style
@@ -150,22 +301,32 @@ const Photographer = () => {
               setCountPerPage(rowPerPage);
             }}
           />
-          {/* <Modal show={show} onHide={handleClose}>
+         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title className="text-danger">Alert!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Are you want to remove this email from newsletter ??
+              Are you want to{" "}
+              {statusName === "blocked"
+                ? "Unblock"
+                : statusName === "active" || "inactive"
+                ? "Block"
+                : null}{" "}
+              this email from photographer ??
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 cancel
               </Button>
-              <Button variant="danger" onClick={() => removeEmail()}>
-                Delete
+              <Button variant="info " onClick={() => statusBlock()}>
+                {statusName === "blocked"
+                  ? "Unblock"
+                  : statusName === "active" || "inactive"
+                  ? "Block"
+                  : null}
               </Button>
             </Modal.Footer>
-          </Modal> */}
+          </Modal>
         </div>
       </div>
     </>
