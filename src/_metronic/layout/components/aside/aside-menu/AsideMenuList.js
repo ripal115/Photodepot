@@ -198,6 +198,18 @@ export function AsideMenuList({ layoutProps }) {
             <span className="menu-text">Review</span>
           </NavLink>
         </li>
+        <li
+          className={`menu-item ${getMenuItemActive("/services", false)}`}
+          aria-haspopup="true"
+        >
+          <NavLink className="menu-link" to="/services">
+            <span className="svg-icon menu-icon">
+              {/* <img alt="" src="media/allIconsForTable/feedback.svg" /> */}
+              <i class="fa-solid fa-comments"></i>
+            </span>
+            <span className="menu-text">Servies</span>
+          </NavLink>
+        </li>
 
         {/* <li
             className={`menu-item ${getMenuItemActive("/adminData", false)}`}

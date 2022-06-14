@@ -211,6 +211,7 @@ export default function PhotoEditorSignup() {
             <div className="text-center mb-10 mb-lg-20">
               <h3 className="font-size-h1">Your Photo Editor Signup is done</h3>
               <p className="text-muted font-weight-bold">Thank You.</p>
+              <p className="text-muted font-weight-bold"><a href='http://localhost:3001/login'>Click here for Login!!</a></p>
               <span className="text-danger h6">{errors.user}</span>
             </div>
           </div>

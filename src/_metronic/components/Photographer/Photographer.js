@@ -5,7 +5,7 @@ import { ApiGet, ApiPut } from "../../../helpers/API/ApiData";
 // import DeleteIcon from "@material-ui/icons/Delete";
 // import { Modal } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
-import { ToastContainer ,toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
 import { Button, Modal } from "react-bootstrap";
@@ -17,11 +17,11 @@ const Photographer = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
-  const [photographer, setPhotographer] = useState()
+  const [photographer, setPhotographer] = useState();
   const [eId, setEmailId] = useState();
   const [statusName, setStatusName] = useState();
   const [countPerPage, setCountPerPage] = useState(10);
-  const [filterPhotographer, setFilterPhotographer] = useState()
+  const [filterPhotographer, setFilterPhotographer] = useState();
 
   useEffect(() => {
     getPhotographerData();
@@ -31,9 +31,9 @@ const Photographer = () => {
     setIsLoaderVisible(true);
     await ApiGet("admin/get-admins?roleType=photographer")
       .then((res) => {
-          console.log("get photographer",res);
-        setPhotographer(res?.data?.payload?.admin)
-        setFilterPhotographer(res?.data?.payload?.admin)
+        console.log("get photographer", res);
+        setPhotographer(res?.data?.payload?.admin);
+        setFilterPhotographer(res?.data?.payload?.admin);
       })
       .catch((err) => {
         console.log("err", err);
@@ -107,13 +107,13 @@ const Photographer = () => {
       sortable: true,
     },
     {
-        name: "Registration Date",
-        cell: (row) => {
-          return <>{moment(row.registrationDate).format("Do MMMM YYYY ")}</>;
-        },
-        selector: "Date",
-        sortable: true,
-        width: "200px",
+      name: "Registration Date",
+      cell: (row) => {
+        return <>{moment(row.registrationDate).format("Do MMMM YYYY ")}</>;
+      },
+      selector: "Date",
+      sortable: true,
+      width: "200px",
     },
     {
       name: "Status",
@@ -136,7 +136,12 @@ const Photographer = () => {
                     : null
                 }
               >
-                <b>{row.status?.name ? (row.status?.name.charAt(0).toUpperCase() + row.status?.name.slice(1)): "-"}</b>
+                <b>
+                  {row.status?.name
+                    ? row.status?.name.charAt(0).toUpperCase() +
+                      row.status?.name.slice(1)
+                    : "-"}
+                </b>
               </div>
             }
           </>
@@ -212,7 +217,6 @@ const Photographer = () => {
       },
       selector: "website",
     },
-
   ];
   // * Table Style
   const customStyles = {
@@ -248,18 +252,18 @@ const Photographer = () => {
     },
   };
 
-  console.log("filterPhotographer",filterPhotographer)
+  console.log("filterPhotographer", filterPhotographer);
 
   const handleSearchData = (e) => {
     console.log("first", e.target.value);
     var value = e.target.value.toLowerCase();
-    setPhotographer(() => 
-    filterPhotographer.filter((item) => 
-    // console.log("filterPhotographerr",item)
-          item?.email?.toLowerCase().includes(value)
-
-    ))
-  }
+    setPhotographer(() =>
+      filterPhotographer.filter((item) =>
+        // console.log("filterPhotographerr",item)
+        item?.email?.toLowerCase().includes(value)
+      )
+    );
+  };
 
   return (
     <>
@@ -272,14 +276,13 @@ const Photographer = () => {
             </div>
             <div className="col">
               <div>
-                
                 <input
-                   type="text"
-                className={`form-control form-control-lg form-control-solid `}
-                name="title"
-                placeholder="Search Photographer"
-                onChange={(e) => handleSearchData(e)}
-              />
+                  type="text"
+                  className={`form-control form-control-lg form-control-solid `}
+                  name="title"
+                  placeholder="Search Photographer"
+                  onChange={(e) => handleSearchData(e)}
+                />
               </div>
             </div>
           </div>
@@ -301,7 +304,7 @@ const Photographer = () => {
               setCountPerPage(rowPerPage);
             }}
           />
-         <Modal show={show} onHide={handleClose}>
+          <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
               <Modal.Title className="text-danger">Alert!</Modal.Title>
             </Modal.Header>

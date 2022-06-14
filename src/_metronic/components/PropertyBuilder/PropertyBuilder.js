@@ -11,9 +11,9 @@ const PropertyBuilder = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
-  // const [eId, setEmailId] = useState();  
-  const [photoEditor, setPhotoEditor] = useState()
-  const [filterPhotoEditor, setFilterPhotoEditor] = useState()
+  // const [eId, setEmailId] = useState();
+  const [photoEditor, setPhotoEditor] = useState();
+  const [filterPhotoEditor, setFilterPhotoEditor] = useState();
   const [countPerPage, setCountPerPage] = useState(10);
 
   useEffect(() => {
@@ -24,7 +24,7 @@ const PropertyBuilder = () => {
     setIsLoaderVisible(true);
     await ApiGet("admin/get-admins?roleType=propertybuilder")
       .then((res) => {
-        console.log("get photoeditor",res);
+        console.log("get photoeditor", res);
         setPhotoEditor(res?.data?.payload?.admin);
         setFilterPhotoEditor(res?.data?.payload?.admin);
       })
@@ -65,14 +65,14 @@ const PropertyBuilder = () => {
       sortable: true,
     },
     {
-        name: "Date",
-        cell: (row) => {
-          return <>{moment(row.createdAt).format("Do MMMM YYYY ")}</>;
-        },
-        selector: "projectName",
-        sortable: true,
-        width: "200px",
+      name: "Date",
+      cell: (row) => {
+        return <>{moment(row.createdAt).format("Do MMMM YYYY ")}</>;
       },
+      selector: "projectName",
+      sortable: true,
+      width: "200px",
+    },
   ];
   // * Table Style
   const customStyles = {
@@ -111,13 +111,13 @@ const PropertyBuilder = () => {
   const handleSearchData = (e) => {
     console.log("first", e.target.value);
     var value = e.target.value.toLowerCase();
-    setPhotoEditor(() => 
-    filterPhotoEditor.filter((item) => 
-    // console.log("filterPhotographerr",item)
-          item?.email?.toLowerCase().includes(value)
-
-    ))
-  }
+    setPhotoEditor(() =>
+      filterPhotoEditor.filter((item) =>
+        // console.log("filterPhotographerr",item)
+        item?.email?.toLowerCase().includes(value)
+      )
+    );
+  };
 
   return (
     <>
@@ -131,12 +131,12 @@ const PropertyBuilder = () => {
             <div className="col">
               <div>
                 <input
-                   type="text"
-                className={`form-control form-control-lg form-control-solid `}
-                name="title"
-                placeholder="Search Photo Builder"
-                onChange={(e) => handleSearchData(e)}
-              />
+                  type="text"
+                  className={`form-control form-control-lg form-control-solid `}
+                  name="title"
+                  placeholder="Search Photo Builder"
+                  onChange={(e) => handleSearchData(e)}
+                />
               </div>
             </div>
           </div>

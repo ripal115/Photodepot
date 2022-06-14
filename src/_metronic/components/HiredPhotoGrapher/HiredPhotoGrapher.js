@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import DataTable, { defaultThemes } from "react-data-table-component";
-import { ApiGet } from "../../../helpers/API/ApiData";
+import { ApiGet, ApiPost } from "../../../helpers/API/ApiData";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import moment from "moment";
@@ -10,7 +10,13 @@ import IconButton from "@material-ui/core/IconButton";
 import Toolbar from "@material-ui/core/Toolbar";
 import InfoOutlinedIcon from "@material-ui/icons/InfoOutlined";
 import { Tooltip } from "@material-ui/core";
+import Auth from "../../../helpers/Auth";
+
+// import CalendarIcon from "../../_assets/svg/calendar_blue.svg";
+
 import ViewHiredPhotoEditor from "../HiredPhotoEditor/ViewHiredPhotoEditor";
+import ReactDatePicker from "react-datepicker";
+import { DatePicker } from "@material-ui/pickers";
 
 const HiredPhotoGrapher = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
@@ -19,6 +25,9 @@ const HiredPhotoGrapher = () => {
   const [countPerPage, setCountPerPage] = useState(10);
   const [showViewMore, setShowViewMore] = useState(false);
   const [photoEditorID, setPhotoEditorID] = useState();
+  const [startDate, setStartDate] = useState(new Date());
+  const userInfo = Auth.getUserDetail();
+
 
   // For get Hire photoEditor
   const getHirePhotoEditorData = async () => {
@@ -33,6 +42,21 @@ const HiredPhotoGrapher = () => {
       });
     setIsLoaderVisible(false);
   };
+  console.log("date filter ",moment(startDate).format("YYYY-MM-DD"));
+  const getdateFilter = async (e) => {
+    await ApiGet("hire/getAllHire?date="+moment(startDate).format("YYYY-MM-DD"))
+  .then((res) => {
+    console.log("get All Hire", res);
+    // setHireAllData(res?.data?.payload?.hire);
+  })
+  .catch((err) => {
+    console.log("err", err);
+  });
+
+  }
+  useEffect(() => {
+    getdateFilter();
+  }, [startDate]);
 
   //For viewmore 
   const handleViewMore = (e, rows) => {
@@ -199,6 +223,15 @@ const HiredPhotoGrapher = () => {
             <div className="col d-flex justify-content-between">
               <h2 className="pl-3 pt-2">HiredPhotoEditor</h2>
             </div>
+            <button>
+            {/* <img src={CalendarIcon} alt="CalendarIcon" className="imgwidth" /> */}
+            <span className="date-picker-style">
+              <ReactDatePicker
+                selected={startDate}
+                onChange={(date) => setStartDate(date)}
+              />
+            </span>
+          </button>
           </div>
 
           <DataTable

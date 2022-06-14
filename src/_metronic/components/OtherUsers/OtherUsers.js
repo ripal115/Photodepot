@@ -13,18 +13,18 @@ import moment from "moment";
 
 const OtherUsers = () => {
   const [isLoaderVisible, setIsLoaderVisible] = useState(false);
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(false);
   const [show, setShow] = useState(false);
   const [page, setPage] = useState(1);
   const [eId, setEmailId] = useState();
-  const [otherUsers, setOtherUsers] = useState()
-  const [filterOtherUsers, setFilterOtherUsers] = useState()
+  const [otherUsers, setOtherUsers] = useState();
+  const [filterOtherUsers, setFilterOtherUsers] = useState();
   const [countPerPage, setCountPerPage] = useState(10);
   const [statusName, setStatusName] = useState();
   const [addOtherUsers, setAddOtherUsers] = useState(false);
   const [inputValue, setInputValue] = useState([]);
   const [errors, setErrors] = useState("");
-  
+
   //For add new user input handle change
   const handleOnChange = (e) => {
     setInputValue({ ...inputValue, [e.target.name]: e.target.value });
@@ -69,19 +69,19 @@ const OtherUsers = () => {
   //For new other user add api
   const handleOnAdd = async () => {
     if (validation()) {
-      setLoading(true)
-    await ApiPut("admin/invite", inputValue)
-      .then((res) => {
-        console.log("res admin/invite", res);
-        toast.success(res?.data?.message);
-        setAddOtherUsers(false);
-        setLoading(false)
-      })
-      .catch((err) => {
-        console.log("err");
-        toast.error(err?.response?.data?.message);
-        setLoading(false)
-      });
+      setLoading(true);
+      await ApiPut("admin/invite", inputValue)
+        .then((res) => {
+          console.log("res admin/invite", res);
+          toast.success(res?.data?.message);
+          setAddOtherUsers(false);
+          setLoading(false);
+        })
+        .catch((err) => {
+          console.log("err");
+          toast.error(err?.response?.data?.message);
+          setLoading(false);
+        });
     }
   };
 
@@ -104,12 +104,12 @@ const OtherUsers = () => {
       });
   };
 
-//For get other user api
+  //For get other user api
   const getOtherUser = async () => {
     setIsLoaderVisible(true);
     await ApiGet("admin/get-admins?roleType=anonymous")
       .then((res) => {
-        console.log("get photoeditor",res);
+        console.log("get photoeditor", res);
         setOtherUsers(res?.data?.payload?.admin);
         setFilterOtherUsers(res?.data?.payload?.admin);
       })
@@ -122,7 +122,7 @@ const OtherUsers = () => {
 
   //For status name set
   const handleMenu = (name) => {
-    setStatusName(name)
+    setStatusName(name);
     setShow(true);
   };
 
@@ -134,8 +134,8 @@ const OtherUsers = () => {
   // For modal close
   const handleOnClose = (e) => {
     setAddOtherUsers(false);
-    setErrors({})
-    setInputValue({})
+    setErrors({});
+    setInputValue({});
   };
 
   // For table columns
@@ -154,109 +154,116 @@ const OtherUsers = () => {
       sortable: true,
     },
     {
-        name: "Date",
-        cell: (row) => {
-          return <>{moment(row.createdAt).format("Do MMMM YYYY ")}</>;
-        },
-        selector: "projectName",
-        sortable: true,
-        width: "200px",
+      name: "Date",
+      cell: (row) => {
+        return <>{moment(row.createdAt).format("Do MMMM YYYY ")}</>;
       },
-      {
-        name: "Status",
-        width: "20%",
-        color: "red",
-        fontWeight: 500,
-        cell: (row) => {
-          //text-success text-warning
-          return (
-            <>
-              {
-                <div
-                  className={
-                    row.status?.name === "blocked"
-                      ? "text-danger"
-                      : row.status?.name === "inactive"
-                      ? "text-warning"
-                      : row.status?.name === "active"
-                      ? "text-success"
-                      : null
-                  }
-                >
-                  <b>{row.status?.name ? (row.status?.name.charAt(0).toUpperCase() + row.status?.name.slice(1)) : "-"}</b>
+      selector: "projectName",
+      sortable: true,
+      width: "200px",
+    },
+    {
+      name: "Status",
+      width: "20%",
+      color: "red",
+      fontWeight: 500,
+      cell: (row) => {
+        //text-success text-warning
+        return (
+          <>
+            {
+              <div
+                className={
+                  row.status?.name === "blocked"
+                    ? "text-danger"
+                    : row.status?.name === "inactive"
+                    ? "text-warning"
+                    : row.status?.name === "active"
+                    ? "text-success"
+                    : null
+                }
+              >
+                <b>
+                  {row.status?.name
+                    ? row.status?.name.charAt(0).toUpperCase() +
+                      row.status?.name.slice(1)
+                    : "-"}
+                </b>
+              </div>
+            }
+          </>
+        );
+      },
+      selector: "projectName",
+    },
+    {
+      name: "Actions",
+      width: "20%",
+      cell: (row) => {
+        return (
+          <>
+            <div className=" d-flex justify-content-center w-100">
+              <div
+                className="pl-3 cursor-pointer d-flex"
+                style={{ columnGap: "50px" }}
+              >
+                <div>
+                  {row?.status?.name === "active" ? (
+                    <button
+                      className="btn btn-secondary btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={(e) =>
+                        HandleonActive(e, row._id, row?.status?.name)
+                      }
+                    >
+                      Inactive
+                    </button>
+                  ) : row?.status?.name === "inactive" ? (
+                    <button
+                      className="btn btn-primary btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={(e) =>
+                        HandleonActive(e, row._id, row?.status?.name)
+                      }
+                    >
+                      Active
+                    </button>
+                  ) : (
+                    <div style={{ minWidth: "80px" }} />
+                  )}
                 </div>
-              }
-            </>
-          );
-        },
-        selector: "projectName",
-      },
-      {
-        name: "Actions",
-        width: "20%",
-        cell: (row) => {
-          return (
-            <>
-              <div className=" d-flex justify-content-center w-100">
-                <div
-                  className="pl-3 cursor-pointer d-flex"
-                  style={{ columnGap: "50px" }}
-                >
-                  <div>
-                    {row?.status?.name === "active" ? (
-                      <button
-                        className="btn btn-secondary btn-sm text-nowrap"
-                        style={{minWidth: "80px"}}
-                        onClick={(e) =>
-                          HandleonActive(e, row._id, row?.status?.name)
-                        }
-                      >
-                        Inactive
-                      </button>
-                    ) : row?.status?.name === "inactive" ? (
-                      <button
-                        className="btn btn-primary btn-sm text-nowrap"
-                        style={{minWidth: "80px"}}
-                        onClick={(e) =>
-                          HandleonActive(e, row._id, row?.status?.name)
-                        }
-                      >
-                        Active
-                      </button>
-                    ) : <div style={{minWidth: "80px"}} />}
-                  </div>
-                  <div>
-                    {row?.status?.name === "blocked" ? (
-                      <button
-                        className="btn btn-danger btn-sm text-nowrap"
-                        style={{minWidth: "80px"}}
-                        onClick={() => {
-                          handleMenu(row?.status?.name);
-                          setEmailId(row._id);
-                        }}
-                      >
-                        Unblock
-                      </button>
-                    ) : (
-                      <button
-                        className="btn btn-danger btn-sm text-nowrap"
-                        style={{minWidth: "80px"}}
-                        onClick={() => {
-                          handleMenu(row?.status?.name);
-                          setEmailId(row._id);
-                        }}
-                      >
-                        Block
-                      </button>
-                    )}
-                  </div>
+                <div>
+                  {row?.status?.name === "blocked" ? (
+                    <button
+                      className="btn btn-danger btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={() => {
+                        handleMenu(row?.status?.name);
+                        setEmailId(row._id);
+                      }}
+                    >
+                      Unblock
+                    </button>
+                  ) : (
+                    <button
+                      className="btn btn-danger btn-sm text-nowrap"
+                      style={{ minWidth: "80px" }}
+                      onClick={() => {
+                        handleMenu(row?.status?.name);
+                        setEmailId(row._id);
+                      }}
+                    >
+                      Block
+                    </button>
+                  )}
                 </div>
               </div>
-            </>
-          );
-        },
-        selector: "website",
+            </div>
+          </>
+        );
       },
+      selector: "website",
+    },
   ];
   // * Table Style
   const customStyles = {
@@ -291,16 +298,17 @@ const OtherUsers = () => {
       },
     },
   };
-  
+
   // for handle search input
   const handleSearchData = (e) => {
     console.log("first", e.target.value);
     var value = e.target.value.toLowerCase();
-    setOtherUsers(() => 
-    filterOtherUsers.filter((item) => 
-          item?.email?.toLowerCase().includes(value)
-    ))
-  }
+    setOtherUsers(() =>
+      filterOtherUsers.filter((item) =>
+        item?.email?.toLowerCase().includes(value)
+      )
+    );
+  };
 
   return (
     <>
@@ -314,22 +322,22 @@ const OtherUsers = () => {
             <div className="col">
               <div>
                 <input
-                   type="text"
-                className={`form-control form-control-lg form-control-solid `}
-                name="title"
-                placeholder="Search Miscellaneous Affiliates"
-                onChange={(e) => handleSearchData(e)}
-              />
+                  type="text"
+                  className={`form-control form-control-lg form-control-solid `}
+                  name="title"
+                  placeholder="Search Miscellaneous Affiliates"
+                  onChange={(e) => handleSearchData(e)}
+                />
               </div>
             </div>
-              <button
-                className="btn btn-warning btn-sm"
-                onClick={() => setAddOtherUsers(true)}
-              >
-                Add Miscellaneous Affiliates
-              </button>
+            <button
+              className="btn btn-warning btn-sm"
+              onClick={() => setAddOtherUsers(true)}
+            >
+              Add Miscellaneous Affiliates
+            </button>
           </div>
-          
+
           <DataTable
             columns={columns}
             data={otherUsers}
@@ -346,7 +354,6 @@ const OtherUsers = () => {
             onChangeRowsPerPage={(rowPerPage) => {
               setCountPerPage(rowPerPage);
             }}
-
           />
 
           <Modal show={show} onHide={handleClose}>
@@ -354,14 +361,24 @@ const OtherUsers = () => {
               <Modal.Title className="text-danger">Alert!</Modal.Title>
             </Modal.Header>
             <Modal.Body>
-              Are you want to {statusName === "blocked" ? "Unblock" : statusName === "active" || "inactive" ? "Block": null} this email from photoEditor ??
+              Are you want to{" "}
+              {statusName === "blocked"
+                ? "Unblock"
+                : statusName === "active" || "inactive"
+                ? "Block"
+                : null}{" "}
+              this email from photoEditor ??
             </Modal.Body>
             <Modal.Footer>
               <Button variant="secondary" onClick={handleClose}>
                 cancel
               </Button>
               <Button variant="info " onClick={() => statusBlock()}>
-              {statusName === "blocked" ? "Unblock" : statusName === "active" || "inactive" ? "Block": null}
+                {statusName === "blocked"
+                  ? "Unblock"
+                  : statusName === "active" || "inactive"
+                  ? "Block"
+                  : null}
               </Button>
             </Modal.Footer>
           </Modal>
@@ -419,10 +436,10 @@ const OtherUsers = () => {
                 className="btn btn-warning mr-2"
                 onClick={(e) => handleOnAdd(e)}
               >
-                 Add Miscellaneous Affiliates
+                Add Miscellaneous Affiliates
                 {loading && (
-                        <span className="mx-3 spinner spinner-white"></span>
-                      )}
+                  <span className="mx-3 spinner spinner-white"></span>
+                )}
               </button>
             </div>
           </>

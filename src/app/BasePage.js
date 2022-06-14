@@ -12,6 +12,7 @@ import HiredPhotoEditor from "../_metronic/components/HiredPhotoEditor/HiredPhot
 import Hire from "../_metronic/components/Hire/Hire";
 import ReportAbuse from "../_metronic/components/ReportAbuse/ReportAbuse";
 import AdminReview from "../_metronic/components/AdminReview/AdminReview";
+import Services from "../_metronic/components/Services/Services";
 export default function BasePage() { 
 
   return (
@@ -28,6 +29,7 @@ export default function BasePage() {
           <ContentRoute exact path="/hiredphotoeditor" component={HiredPhotoEditor}/>
           <ContentRoute exact path="/reportabuse" component={ReportAbuse}/>
           <ContentRoute exact path="/adminreview" component={AdminReview}/>
+          <ContentRoute exact path="/services" component={Services}/>
           {/* <ContentRoute exact path="/hiredviewmore" component={HiredViewMore}/> */}
           <ContentRoute exact path="/adminData" component={AdminData}/>
           <ContentRoute exact path="/hire" component={Hire}/>

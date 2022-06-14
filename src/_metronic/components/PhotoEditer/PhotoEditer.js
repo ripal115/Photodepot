@@ -177,6 +177,7 @@ const PhotoEditor = () => {
       name: "Emails",
       width: "25%",
       cell: (row) => {
+        console.log("firstemail", row);
         return <>{row.email ? row.email : "-"}</>;
       },
       selector: "projectName",
@@ -299,7 +300,7 @@ const PhotoEditor = () => {
       color: "red",
       fontWeight: 500,
       cell: (row) => {
-        console.log("row", row);
+        console.log("rowsffbnmj", row);
         //text-success text-warning
         return (
           <>
