@@ -1,0 +1,17 @@
+:root{
+    --sw1:0px 0px 12px rgba(217, 225, 234, 0.69);
+    --sw2: 0px 0px 21px rgba(0, 0, 0, 0.1);
+    --sw3:0px 0px 22px rgba(0, 0, 0, 0.1);
+}
+
+@mixin md-shadow {
+    box-shadow: var(--sw1);
+}
+
+@mixin lg-shadow {
+    box-shadow: var(--sw3);
+}
+
+@mixin card-shadow {
+    box-shadow: var(--sw2);
+}

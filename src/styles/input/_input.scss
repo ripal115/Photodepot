@@ -1,0 +1,114 @@
+@import '../shadow/shadow';
+@import '../transition/transition';
+
+
+.input {
+    position: relative;
+    .icon-alignment {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        @include flex-center;
+        left: 20px;
+    }
+    input {
+        width: 100%;
+        @include md-shadow;
+        padding-left: 60px;
+        padding-right: 16px;
+        border: 1px solid var(--border-color);
+        height: 50px;
+        @include rounded-sm;
+        @include text;
+        color: var(--black-1);
+        @include ease-in-out;
+        &:focus {
+            outline: none;
+            border: 1px solid var(--primary-color);
+        }
+    }
+    ::placeholder {
+        @include text;
+        color: var(--light-gray);
+    }
+    select {
+        appearance: none;
+    }
+}
+
+.input-error-message-style {
+    @include text-sm;
+    color: red;
+    font-size: 12px;
+    @include font-medium;
+}
+
+.form-control {
+    label {
+        @include heading-6-normal;
+        color: var(--black-3);
+        display: block;
+        padding: 0 0 10px 0;
+        a {
+            color: red;
+        }
+    }
+    select {
+        appearance: none;
+        option {
+            @include text-md;
+            color: var(--black-3);
+        }
+    }
+    .select-relative {
+        @include relative;
+        .icon-alignment {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            right: 20px;
+            @include pointer;
+            @include flex-center;
+        }
+    }
+    input , select{
+        width: 100%;
+        background-color: var(--white-color);
+        padding: 0 20px;
+        @include md-shadow;
+        height: 50px;
+        @include rounded-sm;
+        @include text-md;
+        @include font-medium;
+        border: 1px solid var(--border-color);
+        @include ease-in-out;
+        &:focus {
+            outline: none;
+            @include ease-in-out;
+            border: 1px solid var(--primary-color);
+        }
+    }
+    textarea{
+        width: 100%;
+        background-color: var(--white-color);
+        padding:20px;
+        @include md-shadow;
+        height: 160px;
+        @include rounded-sm;
+        color: var(--black-3);
+        @include text-md;
+        @include font-medium;
+        border: 1px solid var(--border-color);
+        @include ease-in-out;
+        &:focus {
+            outline: none;
+            @include ease-in-out;
+            border: 1px solid var(--primary-color);
+        }
+    }
+    ::placeholder {
+        @include text-md;
+        color: var(--border-color);
+        
+    }
+}

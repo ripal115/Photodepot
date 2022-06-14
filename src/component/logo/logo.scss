@@ -1,0 +1,20 @@
+@import '../../styles/mixins/global.scss';
+
+.custom-logo-design {
+    h1 {
+        @include heading-5;
+        color: var(--primary-color);
+        margin: 0;
+        @include pointer;
+        @include flex-center;
+        user-select: none;
+        span {
+            padding: 9px;
+            background-color: var(--orange-color);
+            color: var(--white-color);
+            display: block;
+            @include heading-5;
+            margin-left: calc(var(--sm) * 2 - 1px);
+        }
+    }
+}

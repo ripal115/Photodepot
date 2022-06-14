@@ -1,0 +1,91 @@
+@import '../../styles/mixins/global.scss';
+
+.home-hero-section {
+    background-image: url("../../assets/images/banner.png");
+    background-repeat: no-repeat;
+    background-size: cover;
+    width: 100%;
+    background-position: center center;
+    padding: 220px 0 160px 0;
+    .content-center {
+        @include flex-center;
+        justify-content: center;
+    }
+    .content-center-alignment {
+        @include grid;
+        .content-style {
+            max-width: 682px;
+            grid-column:  span 12;
+            h1 {
+                @include heading-2;
+                @include text-center;
+                color: var(--white-color);
+                margin: 0 0 24px 0;
+                span {
+                    color: var(--orange-color);
+                }
+            }
+            .search-section-alignment {
+                grid-column: span / 12;
+                .search-grid {
+                    display: grid;
+                    grid-template-columns: minmax(0 , 1fr) 100px;
+                    gap: 0 calc(var(--md) - 0px);
+                    .search-grid-items {
+                        @include relative;
+                        .icon-left-alignment {
+                            position: absolute;
+                            top: 50%;
+                            transform: translateY(-50%);
+                            left: 19px;
+                            @include flex-center;
+                        }
+                        input {
+                            width: 100%;
+                            height: 50px;
+                            background: rgba(255, 255, 255, 0.6);
+                            border: 1px solid var(--white-color);
+                            padding-left: 52px;
+                            @include rounded-sm;
+                            @include heading-6;
+                            color: var(--white-color);
+                            @include ease-in-out;
+                            &:focus {
+                                outline: none;
+                            }
+                        }
+                        ::placeholder {
+                            @include heading-6;
+                            color: var(--white-color);
+                        }
+                        button {
+                            width: 100px;
+                            height: 50px;
+                            @include flex-center;
+                            @include heading-5;
+                            background-color: var(--primary-color);
+                            color: var(--white-color);
+                            @include pointer;
+                            border: none;
+                            justify-content: center;
+                            @include rounded-sm;
+                            @include ease-in-out;
+                            &:hover{
+                                @include top-up;
+                            }
+                        }
+                    }
+                }
+            }
+            p {
+                grid-column: span 12;
+                @include text;
+                padding:  0 0 50px 0;
+                max-width: 624px;
+                margin:  0 auto;
+                @include text-center;
+                color: var(--border-color);
+            }
+        }
+    }
+}

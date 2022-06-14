@@ -1,0 +1,8 @@
+@mixin ease-in-out {
+    transition: .3s ease-in-out;
+}
+
+@mixin top-up {
+    transform: translate(0 , -3px);
+    @include ease-in-out();
+}

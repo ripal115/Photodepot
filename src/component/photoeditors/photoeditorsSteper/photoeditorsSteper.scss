@@ -1,0 +1,51 @@
+@import '../../../styles/mixins/global.scss';
+
+.photoeditors-steper-section-alignment {
+    margin: 0 0 40px 0;
+    .left-right-alignment {
+        padding: 0 50px;
+        .steper-all-alignment {
+            @include flex-between;
+            position: relative;
+            &::before {
+                width: calc(100% - 150px);
+                content: "";
+                border: 1px solid var(--border-color);
+                top: 30%;
+                left: 100px;
+                position: absolute;
+            }
+            .steper-content-alignment {
+                @include flex-center;
+                justify-content: center;
+            }
+            .steper-style {
+                @include relative;
+                z-index: 9999;
+                .stper-icon-design-avtive {
+                    background-color: var(--primary-color) !important;
+                    color: var(--white-color) !important;
+                }
+                .stper-icon-design {
+                    width: 60px;
+                    height: 60px;
+                    background-color: var(--border-color);
+                    border: 1px solid var(--border-color);
+                    @include flex-center;
+                    justify-content: center;
+                    @include pointer;
+                    border-radius: 50%;
+                    font-size: 29px;
+                    color: var(--black-2);
+                    @include font-normal;
+                }
+                p {
+                    @include heading-10;
+                    margin: 14px 0 0 0;
+                    @include font-medium;
+                    color: var(--black-3);
+                }
+            }
+        }
+    }
+}

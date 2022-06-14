@@ -1,0 +1,63 @@
+@import '../../../styles/mixins/global.scss';
+
+.people-loved-section-alignment {
+    .page-title {
+        @include grid;
+        padding: 0 0 41px 0;
+        div {
+            grid-column: span  12;
+            h1 {
+                @include heading-8;
+                color: var(--black-1);
+                @include text-center;
+                margin: 0;
+            }
+        }
+    }
+    .grid {
+        @include grid;
+        gap: 24px;
+        .grid-items {
+            @include lg-shadow;
+            @include rounded-sm;
+            background-color: var(--white-color);
+            padding: 25px;
+            border: 1px solid var(--border-color);
+            grid-column: span 3;
+            p {
+                @include heading-6-normal;
+                color: var(--black-3);
+                margin: 0;
+            }
+            .profile-grid {
+                margin: 0 0 30px 0;
+                display: grid;
+                gap: 14px;
+                grid-template-columns: 50px minmax(0 , 1fr);
+                .profile-grid-items:nth-child(1){
+                    img {
+                        width: 50px;
+                        height: 50px;
+                        object-fit: cover;
+                        border-radius: 50%;
+                    }
+                }
+                .profile-grid-items {
+                    .rating-alignment {
+                        @include flex-center;
+                        img {
+                            margin-right: 1px;
+                        }
+                    }
+                    span {
+                        @include heading-9;
+                        @include font-bold;
+                        color: var(--black-color);
+                        @include block;
+                        padding: 0 0 4px 0;
+                    }
+                }
+            }
+        }
+    }
+}

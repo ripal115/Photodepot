@@ -1,0 +1,26 @@
+@import '../../styles/mixins/global.scss';
+
+.child-footer-alignment {
+    border-top: 1px solid var(--border-color);
+    .content-alignment {
+        @include flex-between;
+        height: 80px;
+        div + div {
+            @include flex-center;
+            span:last-child {
+                padding: 0;
+            }
+            span {
+                padding-right: calc(var(--xl-4) + var(--md))
+            }
+        }
+        div {
+            span {
+                @include heading-6-normal;
+                color: var(--black-3);
+                @include block;
+                @include pointer;
+            }
+        }
+    }
+}

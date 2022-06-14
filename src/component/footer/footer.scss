@@ -1,0 +1,44 @@
+@import '../../styles/mixins/global.scss';
+
+footer {
+    padding: 100px 0 81px 0;
+    .grid {
+        display: grid;
+        grid-template-columns: repeat(5 , 1fr);
+        gap: 0 100px;
+        .grid-items {
+            h2 {
+                @include heading-6;
+                margin:  0 0 12px 0;
+                color: var(--black-1);
+            }
+            ul {
+                margin: 0 0 0 30px;
+                padding: 0;
+                li {
+                    @include text-md;
+                    color: var(--black-5);
+                    padding: 0 0 16px 0;
+                    @include pointer;
+                }
+            }
+        }
+    }
+}
+
+.copy-right-footer {
+    background-color: var(--primary-color);
+    padding: 11px 0;
+    .footer-sub-grid {
+        @include grid;
+        div {
+            grid-column: span 12;
+            p {
+                @include text-center;
+                @include text-md;
+                color: var(--white-color);
+                @include pointer;
+            }
+        }
+    }
+}

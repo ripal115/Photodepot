@@ -1,0 +1,10 @@
+@import '../../../styles/mixins/global.scss';
+
+.edit-profile-banner-alignment {
+    position: relative;
+    img {
+        width: 100%;
+        height: 432px;
+        object-fit: cover;
+    }
+}

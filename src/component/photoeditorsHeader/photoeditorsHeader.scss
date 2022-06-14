@@ -1,0 +1,39 @@
+
+
+@import '../../styles/mixins/global.scss';
+
+.photoeditors-header-sticky {
+    position: sticky;
+    top: 0;
+    z-index: 99999;
+    background-color: var(--white-color);
+}
+
+.photoeditors-header-alignment {
+    padding: 20px 0;
+    border-bottom: 1px solid var(--border-color);
+    .header-alignment {
+        .logo {
+            h1 {
+                @include heading-5;
+                color: var(--primary-color);
+                margin: 0;
+                @include pointer;
+                font-size: 21px;
+                @include flex-center;
+                user-select: none;
+
+                span {
+                    padding: 9px;
+                    background-color: var(--orange-color);
+                    color: var(--white-color);
+                    display: block;
+                    @include heading-5;
+                    font-size: 23px;
+                    @include font-normal;
+                    margin-left: calc(var(--sm) * 2 - 1px);
+                }
+            }
+        }
+    }
+}

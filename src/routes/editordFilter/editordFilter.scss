@@ -1,0 +1,91 @@
+@import '../../styles/mixins/global.scss';
+
+.editord-filter-section-alignment {
+    padding: 120px 0 0 0;
+    .grid {
+        display: grid;
+        grid-template-columns: 260px minmax(0 , 1fr);
+        gap: 24px;
+        .grid-items {
+            .card-grid {
+                display: grid;
+                grid-template-columns: repeat(5 , 1fr);
+                gap: 24px;
+                padding: 0 0 40px 0;
+                .card-grid-items {
+                    border: 1px solid var(--border-color);
+                    @include card-shadow;
+                    @include rounded-sm;
+                    @include ease-in-out;
+                    @include pointer;
+                    &:hover {
+                        @include top-up;
+                    }
+                    .card-image {
+                        img {
+                            width: 100%;
+                            height: 164px;
+                            object-fit: cover;
+                        }
+                    }
+                    .card-details {
+                        padding: 15px;
+                        p {
+                            @include text-xs;
+                            margin: 0 0 20px 0;
+                            color: var(--black-5);
+                        }
+                        h4 {
+                            @include heading-9;
+                            color: var(--black-1);
+                            sub {
+                                @include text-sm;
+                            }
+                        }
+                        .profile-section-alignment {
+                            @include flex-between;
+                            padding: 0 0 20px 0;
+                            .profile-section {
+                                @include flex-center;
+                                div:first-child {
+                                    padding-right: 9px;
+                                }
+                                .rating-alignment {
+                                    @include flex-center;
+                                    padding: 3px 0 0 0;
+                                    img {
+                                        margin-right: 1px;
+                                        @include pointer;
+                                    }
+                                    img:last-child {
+                                        margin-right: 8px;
+                                    }
+                                    a {
+                                        @include text-sm;
+                                        padding-left: 9px;
+                                        color: var(--black-3);
+        
+                                    }
+                                }
+                                div + div {
+                                    span {
+                                        @include text-sm;
+                                        color: var(--black-color);
+                                    }
+                                }
+                                div:first-child {
+                                    img {
+                                        width: 36px;
+                                        height: 36px;
+                                        object-fit: cover;
+                                        border-radius: 50%;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

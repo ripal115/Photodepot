@@ -1,0 +1,124 @@
+@import '../../../styles/mixins/global.scss';
+
+.provide-section-alignment {
+    padding: 100px 0;
+    .box {
+        background-color: var(--white-color);
+        padding: 30px;
+        @include lg-shadow;
+        @include rounded-sm;
+        border: 1px solid var(--border-color);
+        .image-grid {
+            padding: 50px 0;
+            border-bottom: 1px solid var(--border-color);
+            @include grid;
+            gap: 28px;
+            .image-grid-items {
+                grid-column: span 2;
+                overflow: hidden;
+                @include pointer;
+                position: relative;
+                @include rounded-sm;
+                &:hover {
+                    .card-details{
+                        transform: translateY(0%);
+                        @include ease-in-out;
+                    }
+                }
+                .card-details {
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    width: 100%;
+                    height: calc(100% - 4px);
+                    @include flex-center;
+                    justify-content: center;
+                    @include pointer;
+                    @include rounded-sm;
+                    transform: translateY(-100%);
+                    @include ease-in-out;
+                    background: linear-gradient(0deg, rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), rgba(255, 255, 255, 0.1);
+                    img {
+                        @include relative;
+                    }
+                }
+                .card-image {
+                    overflow: hidden;
+                    img {
+                        width: 100%;
+                        height: 168px;
+                        object-fit: cover;
+                        @include rounded-sm;
+                    }
+                }
+            }
+        }
+        .design-type-one {
+            padding: 50px 0 0 0;
+            @include grid;
+            div {
+                grid-column: span 12;
+                h5 {
+                    @include heading-md;
+                    color: var(--black-1);
+                    margin: 0 0 19px 0;
+                }
+                ul {
+                    margin: 0;
+                    padding: 0 0 0 25px;
+                    li:last-child {
+                        padding: 0;
+                    }
+                    li {
+                        @include heading-6-normal;
+                        color: var(--black-3);
+                        padding: 0 0 10px 0;
+                    }
+                }
+            }
+        }
+        .design-type {
+            padding: 50px 0;
+            border-bottom: 1px solid var(--border-color);
+            @include grid;
+            div {
+                grid-column: span 12;
+                h5 {
+                    @include heading-md;
+                    color: var(--black-1);
+                    margin: 0 0 19px 0;
+                }
+                ul {
+                    margin: 0;
+                    padding: 0 0 0 25px;
+                    li:last-child {
+                        padding: 0;
+                    }
+                    li {
+                        @include heading-6-normal;
+                        color: var(--black-3);
+                        padding: 0 0 10px 0;
+                    }
+                }
+            }
+        }
+        .box-title {
+            @include grid;
+            padding: 0 0 50px 0;
+            border-bottom: 1px solid var(--border-color);
+            div {
+                grid-column: span 12;
+                h3 {
+                    @include heading-md;
+                    color: var(--black-1);
+                    margin: 0 0 19px 0;
+                }
+                p {
+                    @include heading-6-normal;
+                    color: var(--black-3);
+                    margin: 0;
+                }
+            }
+        }
+    }
+}

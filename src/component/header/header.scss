@@ -1,0 +1,111 @@
+@import '../../styles/mixins/global.scss';
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.4);
+    padding: 28px 0;
+    z-index: 99;
+    backdrop-filter: blur(24px);
+    .header-alignment {
+        @include flex-between;
+        .menu {
+            @include flex-center;
+            img {
+                margin-right: 30px;
+                @include pointer;
+            }
+            span {
+                @include heading-5;
+                @include font-medium;
+                color: var(--black-2);
+                padding-right: 30px;
+                @include pointer;
+            }
+            .profile-show {
+                width: 50px;
+                height: 50px;
+                background-color: var(--orange-color);
+                color: var(--white-color);
+                @include heading-5;
+                @include font-medium;
+                @include flex-center;
+                justify-content: center;
+                @include pointer;
+                border-radius: 50%;
+            }
+            .relative-profile {
+                @include relative;
+                .profile-dropdown-hidden {
+                    visibility: hidden;
+                    @include ease-in-out;
+                }
+                .profile-dropdown-show {
+                    visibility: visible;
+                    @include ease-in-out;
+                }
+                .profile-dropdown {
+                    position: absolute;
+                    min-width: 130px;
+                    right: 0;
+                    left: 0;
+                    top: 180px;
+                    z-index: 9999;
+                    transform: translate(-50% , -50%);
+                    @include rounded-sm;
+                    background-color: var(--white-color);
+                    &::before {
+                        background-image: url("../../assets/icons/up-arrow.svg");
+                        background-repeat: no-repeat;
+                        background-size: cover;
+                        width: 25px;
+                        height: 14px;
+                        position: absolute;
+                        right: 25px;
+                        top: -13px;
+                        content: "";
+                    }
+                    .profile-submenu-alignment {
+                        padding: 0 14px;
+                        a:last-child {
+                            color: var(--orange-color);
+                        }
+                        a:first-child {
+                            padding-top: 15px;
+                        }
+                        a {
+                            @include text-sm;
+                            @include font-medium;
+                            padding: 0 0 15px 0;
+                            display: block;
+                            @include pointer;
+                            color: var(--black-3);
+                        }
+                    }
+                }
+            }
+        }
+        .logo {
+            h1 {
+                @include heading-5;
+                color: var(--primary-color);
+                margin: 0;
+                @include pointer;
+                font-size: 21px;
+                @include flex-center;
+                user-select: none;
+                span {
+                    padding: 9px;
+                    background-color: var(--orange-color);
+                    color: var(--white-color);
+                    display: block;
+                    @include heading-5;
+                    font-size: 23px;
+                    @include font-normal;
+                    margin-left: calc(var(--sm) * 2 - 1px);
+                }
+            }
+        }
+    }
+}

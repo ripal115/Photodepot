@@ -1,0 +1,114 @@
+@use '../mixins/breakpoint.scss';
+@import '../fontweight/font-weight';
+
+@mixin heading-5 {
+  font-size: 25px;
+  line-height: 30px;
+  @include font-extrabold;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-2 {
+  font-size: 50px;
+  line-height: 61px;
+  @include font-medium;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-8 {
+  font-size: 32px;
+  line-height: 40px;
+  @include font-bold;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-9 {
+  font-size: 22px;
+  line-height: 26px;
+  @include font-medium;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-10 {
+  font-size: 26px;
+  line-height: 31px;
+  @include font-bold;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-md {
+  font-size: 28px;
+  line-height: 34px;
+  @include font-bold;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-10-normal {
+  font-size: 24px;
+  line-height: 30px;
+  @include font-normal;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-4 {
+  font-size: 36px;
+  line-height: 43px;
+  @include font-medium;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-6 {
+  font-size: 20px;
+  line-height: 24px;
+  @include font-medium;
+  font-family: var(--defult-font-family);
+}
+
+@mixin heading-6-normal {
+  font-size: 20px;
+  line-height: 24px;
+  @include font-normal;
+  font-family: var(--defult-font-family);
+}
+
+@mixin text {
+  font-size: 16px;
+  line-height: 20px;
+  @include font-normal;
+  font-family: var(--defult-font-family);
+}
+
+@mixin text-bold {
+  font-size: 16px;
+  line-height: 20px;
+  @include font-medium;
+  font-family: var(--defult-font-family);
+}
+
+@mixin text-sm {
+  font-size: 14px;
+  line-height: 18px;
+  @include font-normal;
+  font-family: var(--defult-font-family);
+}
+
+@mixin text-sm-bold {
+  font-size: 14px;
+  line-height: 18px;
+  @include font-medium;
+  font-family: var(--defult-font-family);
+}
+
+@mixin text-xs {
+  font-size: 12px;
+  line-height: 15px;
+  @include font-normal;
+  font-family: var(--defult-font-family);
+}
+
+@mixin text-md {
+  font-size: 18px;
+  line-height: 22px;
+  @include font-normal;
+  font-family: var(--defult-font-family);
+}

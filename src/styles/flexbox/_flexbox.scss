@@ -1,0 +1,35 @@
+
+@mixin flex-center {
+    display: flex;
+    align-items: center;
+}
+
+@mixin  flex-between {
+    @include flex-center();
+    justify-content: space-between;
+}
+
+@mixin flex-around {
+    @include flex-center();
+    justify-content: space-around;
+}
+
+@mixin text-center {
+    text-align: center;
+}
+
+@mixin block {
+    display: block;
+}
+
+@mixin pointer {
+    cursor: pointer;
+}
+
+@mixin relative {
+    position: relative;
+}
+
+@mixin absolute {
+    position: absolute;
+}
